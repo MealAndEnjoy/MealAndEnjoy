@@ -7,11 +7,9 @@ import android.support.v7.app.AppCompatActivity;
 import android.widget.TabHost;
 import android.view.View;
 import android.widget.ImageView;
-import android.widget.TabHost;
 import android.widget.TextView;
 
 import com.example.lenovo.viewpagerdemo.R;
-import com.example.lenovo.viewpagerdemo.fragment.BusiCircle_Fragment;
 import com.example.lenovo.viewpagerdemo.fragment.BusinessCircleFragment;
 import com.example.lenovo.viewpagerdemo.fragment.Home_Fragment;
 import com.example.lenovo.viewpagerdemo.fragment.Mine_Fragment;

@@ -133,11 +133,6 @@ public class HomeActivity extends AppCompatActivity implements ViewPager.OnPageC
         mThread.start();
     }
 
-
-
-
-
-
     ///////////////////////////////////////////////////////////////////////////
     // ViewPager的监听事件
     ///////////////////////////////////////////////////////////////////////////
@@ -167,7 +162,6 @@ public class HomeActivity extends AppCompatActivity implements ViewPager.OnPageC
     public void onPageScrollStateChanged(int state) {
 
     }
-
 
     @Override
     public boolean onTouch(View v, MotionEvent event) {
@@ -209,6 +203,7 @@ public class HomeActivity extends AppCompatActivity implements ViewPager.OnPageC
 
         }
     }
+
     class ButtonClickListener implements View.OnClickListener{
         @Override
         public void onClick(View v) {

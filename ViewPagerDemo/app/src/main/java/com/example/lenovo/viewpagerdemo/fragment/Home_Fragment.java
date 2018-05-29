@@ -73,26 +73,7 @@ public class Home_Fragment extends Fragment implements ViewPager.OnPageChangeLis
     private OkHttpClient ok;
     private Thread thread;
     private ArrayList<String> s;
-    //    Handler handler = new Handler(){
-//        @Override
-//        public void handleMessage(Message msg){
-//            switch (msg.what){
-//                case 1:
-//                    Log.i("ceshi","success");
-//                    Bundle b = msg.getData();
-//                    Set<String> keySet = b.keySet();
-//                    for(String key:keySet){
-//                        s.add((String)b.get(key));
-//                    }
-//                    listView = getActivity().findViewById(R.id.lv_shops);
-//                    CustomComAdapter customComAdapter = new CustomComAdapter(getContext(),R.layout.activity_home,prepaerDate(s));
-//                    listView.setAdapter(customComAdapter);
-//                    break;
-//            }
-//
-//            super.handleMessage(msg);
-//        }
-//    };
+
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -148,14 +129,6 @@ public class Home_Fragment extends Fragment implements ViewPager.OnPageChangeLis
         thread = new Thread(new MyThread());
         listView = getActivity().findViewById(R.id.lv_shops);
         thread.start();
-//        try {
-//            thread.join();
-//            CustomHomeAdapter customHomeAdapter = new CustomHomeAdapter(getContext(),R.layout.main_list_item,prepaerDate(s));
-//            listView.setAdapter(customHomeAdapter);
-//        } catch (InterruptedException e) {
-//            e.printStackTrace();
-//        }
-
 
     }
 
@@ -224,42 +197,6 @@ public class Home_Fragment extends Fragment implements ViewPager.OnPageChangeLis
         };
         mThread.start();
 
-//        thread = new Thread(){
-//            @Override
-//        public void run(){
-//            String str = "首页list请求";
-//            MediaType type = MediaType.parse("text/plain;charset=UTF-8");
-//            RequestBody body = RequestBody.create(type,str);
-//            Request.Builder builder = new Request.Builder();
-//
-//            builder.url("http://172.16.23.47:8080/demo001/ShopDemo/homelist.action");
-//            builder.post(body);
-//            Request request = builder.build();
-//            Call call = ok.newCall(request);
-//
-//            try {
-//                Response response = call.execute();
-//                Log.i("demo",response.body().string());
-//                String jshoplist = response.body().string();
-//                Gson gson = new Gson();
-//                List<ShopDemo> shoplist = gson.fromJson(jshoplist,new TypeToken<List<ShopDemo>>(){}.getType());
-//                Message msg = Message.obtain();
-//                Bundle b = new Bundle();
-//                for(int i = 0;i<shoplist.size();i++){
-//                    String n = String.valueOf(i);
-//                    b.putString(n,shoplist.get(i).getShopdName());
-//
-//                }
-//                msg.setData(b);
-//                msg.what = 1;
-//                mHandler.sendMessage(msg);
-//            } catch (IOException e) {
-//                e.printStackTrace();
-//            }
-//            mHandler.removeCallbacks(thread);
-//        }
-//        };
-//        thread.start();
     }
 
 
@@ -443,8 +380,4 @@ public class Home_Fragment extends Fragment implements ViewPager.OnPageChangeLis
         }
     }
 
-//    public void getshoplist(){
-//        thread = new Thread(new MyThread());
-//        thread.start();
-//    }
 }
