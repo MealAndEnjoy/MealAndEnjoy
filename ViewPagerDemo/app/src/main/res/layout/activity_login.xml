@@ -1,0 +1,164 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:background="#d9f1ef">
+
+    <ImageButton
+        android:id="@+id/back"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:layout_width="30dp"
+        android:layout_height="35dp"
+        android:background="@mipmap/left">
+    </ImageButton>
+
+    <TextView
+        android:id="@+id/face"
+        android:layout_alignParentTop="true"
+        android:layout_centerInParent="true"
+        android:layout_width="wrap_content"
+        android:layout_height="35dp"
+        android:text="登录"
+        android:textSize="28sp"
+        android:textColor="#000000">
+    </TextView>
+
+    <ImageView
+        android:id="@+id/yun"
+        android:layout_below="@id/back"
+        android:layout_width="fill_parent"
+        android:layout_height="180dp"
+        android:background="@mipmap/yun">
+    </ImageView>
+
+    <TextView
+        android:id="@+id/username"
+        android:layout_below="@id/yun"
+        android:layout_alignParentStart="true"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="      请输入用户名:"
+        android:textSize="18sp">
+    </TextView>
+
+    <EditText
+        android:id="@+id/one"
+        android:layout_below="@id/username"
+        android:layout_width="fill_parent"
+        android:layout_height="40dp">
+    </EditText>
+
+    <TextView
+        android:id="@+id/blank"
+        android:layout_below="@id/one"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="                  "
+        android:textSize="18sp">
+    </TextView>
+
+    <TextView
+        android:id="@+id/pwd"
+        android:layout_below="@id/blank"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="      请输入登录密码:"
+        android:textSize="18sp">
+    </TextView>
+
+    <EditText
+        android:id="@+id/two"
+        android:layout_below="@id/pwd"
+        android:layout_width="fill_parent"
+        android:layout_height="40dp">
+    </EditText>
+
+    <TextView
+        android:id="@+id/blank2"
+        android:layout_below="@id/two"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="                  "
+        android:textSize="12sp">
+    </TextView>
+
+    <Button
+        android:id="@+id/login"
+        android:layout_below="@id/blank2"
+        android:layout_centerInParent="true"
+        android:layout_width="160dp"
+        android:layout_height="wrap_content"
+        android:text="登录"
+        android:textSize="18sp"
+        android:background="#93b1af"
+        android:textColor="#ffffff">
+    </Button>
+    <TextView
+        android:id="@+id/tv_info"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/login"/>
+
+    <TextView
+        android:id="@+id/blank3"
+        android:layout_below="@id/login"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="                  "
+        android:textSize="12sp">
+    </TextView>
+
+    <TextView
+        android:id="@+id/blank4"
+        android:layout_below="@id/blank3"
+        android:layout_width="16dp"
+        android:layout_height="20dp"
+        android:text="       ">
+    </TextView>
+
+    <ImageView
+        android:id="@+id/db_1"
+        android:layout_alignParentBottom="true"
+        android:layout_width="8dp"
+        android:layout_height="4dp">
+    </ImageView>
+
+    <!--新浪登录-->
+    <ImageButton
+        android:id="@+id/sin"
+        android:layout_above="@id/db_1"
+        android:layout_toEndOf="@id/blank4"
+        android:layout_width="70dp"
+        android:layout_height="56dp"
+        android:background="@mipmap/sina">
+    </ImageButton>
+    <!--新浪结束-->
+
+    <ImageButton
+        android:id="@+id/qq"
+        android:layout_above="@id/db_1"
+        android:layout_centerInParent="true"
+        android:layout_width="70dp"
+        android:layout_height="56dp"
+        android:background="@mipmap/qq">
+    </ImageButton>
+
+    <TextView
+        android:id="@+id/blank5"
+        android:layout_below="@id/blank3"
+        android:layout_alignParentEnd="true"
+        android:layout_width="16dp"
+        android:layout_height="20dp"
+        android:text="       ">
+    </TextView>
+
+    <ImageButton
+        android:id="@+id/wx"
+        android:layout_above="@id/db_1"
+        android:layout_toStartOf="@id/blank5"
+        android:layout_width="70dp"
+        android:layout_height="56dp"
+        android:background="@mipmap/wx">
+    </ImageButton>
+</RelativeLayout>
