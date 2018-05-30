@@ -50,6 +50,8 @@ public class DeliciousFoodActivity extends AppCompatActivity implements ViewPage
         mAdapter.notifyDataSetChanged();
         //设置底部4个小点
         setBottomIndicator();
+
+
     }
     private void addImageView(){
         ImageView view0 = new ImageView(this);
@@ -117,6 +119,11 @@ public class DeliciousFoodActivity extends AppCompatActivity implements ViewPage
         mThread.start();
     }
 
+
+
+
+
+
     ///////////////////////////////////////////////////////////////////////////
     // ViewPager的监听事件
     ///////////////////////////////////////////////////////////////////////////
@@ -146,6 +153,7 @@ public class DeliciousFoodActivity extends AppCompatActivity implements ViewPage
     public void onPageScrollStateChanged(int state) {
 
     }
+
 
     @Override
     public boolean onTouch(View v, MotionEvent event) {
@@ -187,5 +195,4 @@ public class DeliciousFoodActivity extends AppCompatActivity implements ViewPage
 
         }
     }
-
-}
+    }

@@ -1,6 +1,8 @@
 package com.example.lenovo.viewpagerdemo.fragment;
 
+
 import android.content.Intent;
+import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
@@ -12,7 +14,6 @@ import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -24,13 +25,13 @@ import com.example.lenovo.viewpagerdemo.R;
 import com.example.lenovo.viewpagerdemo.activities.DeliciousFoodActivity;
 import com.example.lenovo.viewpagerdemo.activities.EntertainmentActivity;
 import com.example.lenovo.viewpagerdemo.activities.HomeActivity;
-import com.example.lenovo.viewpagerdemo.activities.ShopDetailsActivity;
 import com.example.lenovo.viewpagerdemo.adapters.CustomHomeAdapter;
 import com.example.lenovo.viewpagerdemo.adapters.MyPagerAdapter;
 import com.example.lenovo.viewpagerdemo.entity.ShopDemo;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
+import java.io.File;
 import java.io.IOException;
 import java.lang.ref.WeakReference;
 import java.util.ArrayList;
@@ -73,26 +74,15 @@ public class Home_Fragment extends Fragment implements ViewPager.OnPageChangeLis
     private OkHttpClient ok;
     private Thread thread;
     private ArrayList<String> s;
+    private Bitmap bitmap;
+    private ImageView demo;
 
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         //加载选项卡对应的选项页面
         View view = inflater.inflate(R.layout.activity_home,container,false);
-        //获取布局文件中的控件对象
-        //获取ListView控件对象
-        ListView lv_pro = view.findViewById(R.id.lv_shops);
-        lv_pro.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                //页面跳转
-                Intent intent = new Intent();
-                intent.setClass(getContext(),
-                        ShopDetailsActivity.class);
-                //3. 进行跳转
-                startActivity(intent);
-            }
-        });
+        //获取布局文件中控件对象
 
         //返回选项卡对应的选项页面
         return view;
@@ -124,11 +114,13 @@ public class Home_Fragment extends Fragment implements ViewPager.OnPageChangeLis
         //设置底部4个小点
         setBottomIndicator();
         //添加listview
-
+        demo = getActivity().findViewById(R.id.demo);
         ok = new OkHttpClient();
         thread = new Thread(new MyThread());
         listView = getActivity().findViewById(R.id.lv_shops);
         thread.start();
+
+
 
     }
 
@@ -197,6 +189,42 @@ public class Home_Fragment extends Fragment implements ViewPager.OnPageChangeLis
         };
         mThread.start();
 
+//        thread = new Thread(){
+//            @Override
+//        public void run(){
+//            String str = "首页list请求";
+//            MediaType type = MediaType.parse("text/plain;charset=UTF-8");
+//            RequestBody body = RequestBody.create(type,str);
+//            Request.Builder builder = new Request.Builder();
+//
+//            builder.url("http://172.16.23.47:8080/demo001/ShopDemo/homelist.action");
+//            builder.post(body);
+//            Request request = builder.build();
+//            Call call = ok.newCall(request);
+//
+//            try {
+//                Response response = call.execute();
+//                Log.i("demo",response.body().string());
+//                String jshoplist = response.body().string();
+//                Gson gson = new Gson();
+//                List<ShopDemo> shoplist = gson.fromJson(jshoplist,new TypeToken<List<ShopDemo>>(){}.getType());
+//                Message msg = Message.obtain();
+//                Bundle b = new Bundle();
+//                for(int i = 0;i<shoplist.size();i++){
+//                    String n = String.valueOf(i);
+//                    b.putString(n,shoplist.get(i).getShopdName());
+//
+//                }
+//                msg.setData(b);
+//                msg.what = 1;
+//                mHandler.sendMessage(msg);
+//            } catch (IOException e) {
+//                e.printStackTrace();
+//            }
+//            mHandler.removeCallbacks(thread);
+//        }
+//        };
+//        thread.start();
     }
 
 
@@ -277,14 +305,16 @@ public class Home_Fragment extends Fragment implements ViewPager.OnPageChangeLis
                     activity1.s = new ArrayList<>();
                     Bundle b = msg.getData();
                     Set<String> keySet = b.keySet();
-
+                    Gson gson = new Gson();
                     for(String key:keySet){
-                        activity1.s.add((String)b.get(key));
+                        ShopDemo shopDemo = gson.fromJson((String)b.get(key),ShopDemo.class);
+                        activity1.s.add(shopDemo.getShopdName());
+                        activity1.s.add(shopDemo.getShopimg());
                     }
                     Log.i("ceshi",activity1.s.toString());
                     activity1.listView = activity1.getActivity().findViewById(R.id.lv_shops);
                     CustomHomeAdapter customHomeAdapter = new CustomHomeAdapter(activity1.getContext(),R.layout.main_list_item,activity1.prepaerDate(activity1.s));
-                    //activity1.listView.setAdapter(null);
+
                     activity1.listView.setAdapter(customHomeAdapter);
                     ViewGroup.LayoutParams params = activity1.listView.getLayoutParams();
                     ListAdapter listAdapter = activity1.listView.getAdapter();
@@ -328,15 +358,17 @@ public class Home_Fragment extends Fragment implements ViewPager.OnPageChangeLis
 
     public List<HomeShopList> prepaerDate(ArrayList<String> list){
         List<HomeShopList> shopLists = new ArrayList<>();
+        File dir = new File(getActivity().getFilesDir().getAbsolutePath()+"/img");
+        if(!dir.exists()){
+            dir.mkdir();
+        }
         for(int i =0;i < list.size();i++){
-            Log.i("ceshi",i+list.get(i));
+            Log.i("ceshi",i+getActivity().getFilesDir().getAbsolutePath()+list.get(i+1));
             HomeShopList shopList = new HomeShopList();
             shopList.setShopname(list.get(i));
-            //String path = "img/demo01.png";
-            //Bitmap bitmap = BitmapFactory.decodeFile(path);
-            //Bitmap bitmap = BitmapFactory.
-            shopList.setShopimg(a[i]);
+            shopList.setShopimg(list.get(i+1));
             shopLists.add(shopList);
+            i=i+1;
         }
         return shopLists;
     }
@@ -349,15 +381,15 @@ public class Home_Fragment extends Fragment implements ViewPager.OnPageChangeLis
             MediaType type = MediaType.parse("text/plain;charset=UTF-8");
             RequestBody body = RequestBody.create(type,str);
             Request.Builder builder = new Request.Builder();
-            //builder.url("http://10.7.82.15:8080/demo001/ShopDemo/homelist.action");
-            builder.url("http://10.7.85.220:8080/demo001/ShopDemo/homelist.action");
+            builder.url("http://10.7.85.138:8080/demo001/ShopDemo/homelist.action");
+            //builder.url("http://172.16.12.228:8080/demo001/ShopDemo/homelist.action");
             builder.post(body);
             Request request = builder.build();
             Call call = ok.newCall(request);
 
             try {
                 Response response = call.execute();
-                //Log.i("demo",response.body().string());
+
                 String jshoplist = response.body().string();
                 Gson gson = new Gson();
                 List<ShopDemo> shoplist = gson.fromJson(jshoplist,new TypeToken<List<ShopDemo>>(){}.getType());
@@ -365,9 +397,8 @@ public class Home_Fragment extends Fragment implements ViewPager.OnPageChangeLis
                 Bundle b = new Bundle();
                 for(int i = 0;i<shoplist.size();i++){
                     String n = String.valueOf(i);
-                    //String m = String.valueOf(i+shoplist.size());
-                    b.putString(n,shoplist.get(i).getShopdName());
-                    //b.putString(m,shoplist.get(i).getShopimg());
+
+                    b.putString(n,gson.toJson(shoplist.get(i)));
 
                 }
                 msg.setData(b);
@@ -379,5 +410,8 @@ public class Home_Fragment extends Fragment implements ViewPager.OnPageChangeLis
             mHandler.removeCallbacks(thread);
         }
     }
+
+
+
 
 }

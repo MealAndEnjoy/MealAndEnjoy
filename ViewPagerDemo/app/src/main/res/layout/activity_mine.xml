@@ -75,25 +75,10 @@
         android:background="#c8ddc9"
         android:textColor="#000000">
     </Button>
-    <TextView
-        android:id="@+id/tv_user_info"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_centerHorizontal="true"
-        android:layout_below="@id/tox"
-        android:textColor="#000000"/>
-    <TextView
-        android:id="@+id/tv_info"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:hint="请登录！"
-        android:layout_below="@id/bt_2"
-        android:layout_marginTop="10dp"
-        android:layout_centerHorizontal="true"
-        android:textColor="#000000"/>
+
     <TextView
         android:id="@+id/blank10"
-        android:layout_below="@id/tv_info"
+        android:layout_below="@id/bt_1"
         android:layout_width="fill_parent"
         android:layout_height="16dp"
         android:background="#ffffff">

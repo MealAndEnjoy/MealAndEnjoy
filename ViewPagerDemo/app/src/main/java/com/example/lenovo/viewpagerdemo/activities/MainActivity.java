@@ -7,10 +7,11 @@ import android.support.v7.app.AppCompatActivity;
 import android.widget.TabHost;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.TabHost;
 import android.widget.TextView;
 
 import com.example.lenovo.viewpagerdemo.R;
-import com.example.lenovo.viewpagerdemo.fragment.BusinessCircleFragment;
+import com.example.lenovo.viewpagerdemo.fragment.BusiCircle_Fragment;
 import com.example.lenovo.viewpagerdemo.fragment.Home_Fragment;
 import com.example.lenovo.viewpagerdemo.fragment.Mine_Fragment;
 
@@ -41,7 +42,7 @@ public class MainActivity extends AppCompatActivity {
         //添加人气商圈布局页面
         TabHost.TabSpec tinyTaoTag = tabHost.newTabSpec("tinyTaoTag")
                 .setIndicator(getFragmentTab(R.drawable.selector_busi,"人气商圈"));//关联自定义的选项卡布局
-        tabHost.addTab(tinyTaoTag,BusinessCircleFragment.class,null);
+        tabHost.addTab(tinyTaoTag,BusiCircle_Fragment.class,null);
         //添加我的页面
         TabHost.TabSpec newsTag = tabHost.newTabSpec("newsTag")
                 .setIndicator(getFragmentTab(R.drawable.selector_mine,"我"));//关联自定义的选项卡布局
