@@ -1,14 +1,35 @@
 package com.entity;
 
-import java.util.List;
+import java.util.HashSet;
+import java.util.Set;
+
+import javax.persistence.CascadeType;
+import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
+import javax.persistence.OneToOne;
+import javax.persistence.Table;
 
 //收藏夹类
+@Entity
+@Table(name="shopcollection")
 public class ShopCollection {
-
+	@Id
+	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private int shopCollectionId;
-	
+	@OneToOne(cascade=CascadeType.ALL)
+	@JoinColumn(name="userId")
 	private User user;
-	private List<Shop>shops;
+	@ManyToMany(fetch=FetchType.EAGER)
+	@JoinTable(name="shop_shopcollection", 
+	    joinColumns=@JoinColumn(name="shopCollectionId"),
+	    inverseJoinColumns=@JoinColumn(name="shopId"))
+    private Set<Shop> shopList = new HashSet<Shop>();
 	
 	public int getShopCollectionId() {
 		return shopCollectionId;
@@ -22,12 +43,14 @@ public class ShopCollection {
 	public void setUser(User user) {
 		this.user = user;
 	}
-	public List<Shop> getShops() {
-		return shops;
+	public Set<Shop> getShopList() {
+		return shopList;
 	}
-	public void setShops(List<Shop> shops) {
-		this.shops = shops;
+	public void setShopList(Set<Shop> shopList) {
+		this.shopList = shopList;
 	}
+	
+
 	
 	
 	

@@ -4,6 +4,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 //地理位置类
@@ -17,8 +18,8 @@ public class Address {
 	private double longitude;//经度
 	private double latitude;//纬度
 	private String address;//具体的地理位置描述（由经纬度获得）
-	
-//	private Shop shop;
+	@OneToOne(mappedBy="address")
+	private Shop shop;
 
 	public int getAddressId() {
 		return addressId;
@@ -51,14 +52,14 @@ public class Address {
 	public void setAddress(String address) {
 		this.address = address;
 	}
-//
-//	public Shop getShop() {
-//		return shop;
-//	}
-//
-//	public void setShop(Shop shop) {
-//		this.shop = shop;
-//	}
-//	
+
+	public Shop getShop() {
+		return shop;
+	}
+
+	public void setShop(Shop shop) {
+		this.shop = shop;
+	}
+    
 	
 }

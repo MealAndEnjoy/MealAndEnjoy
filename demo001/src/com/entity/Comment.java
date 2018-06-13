@@ -2,16 +2,28 @@ package com.entity;
 
 import java.util.Date;
 
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.Table;
 //评价信息类
+@Entity
+@Table(name="comment")
 public class Comment {
-
+	@Id
+	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private int commentId;
 	private float rating;//星级，评星
 	private String comment;//评价内容
-	private String username;//评价人的用户名 ？？？和用户建立关联
 	private Date comDate;//评价时间
-	
+	 @ManyToOne
+	 @JoinColumn(name="shopId")
 	private Shop shop;
+	 @ManyToOne
+	 @JoinColumn(name="userId")
 	private User user;
 	public int getCommentId() {
 		return commentId;
@@ -30,12 +42,6 @@ public class Comment {
 	}
 	public void setComment(String comment) {
 		this.comment = comment;
-	}
-	public String getUsername() {
-		return username;
-	}
-	public void setUsername(String username) {
-		this.username = username;
 	}
 	public Date getComDate() {
 		return comDate;

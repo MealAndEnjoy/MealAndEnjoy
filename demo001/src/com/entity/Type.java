@@ -1,15 +1,28 @@
 package com.entity;
 
-import java.util.List;
+import java.util.HashSet;
+import java.util.Set;
 
-//店铺的类型
+import javax.persistence.CascadeType;
+import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.OneToMany;
+import javax.persistence.Table;
+
+//类别类
+@Entity
+@Table(name="type")
 public class Type {
-
+	@Id
+	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private int typeId;
 	private String typeName;//类型名称
+	@OneToMany(mappedBy="type", targetEntity=Shop.class,fetch=FetchType.EAGER,cascade=CascadeType.ALL)
+	private Set<Shop> shopSet = new HashSet<>();
 	
-	private List<Shop>shops;
-
 	public int getTypeId() {
 		return typeId;
 	}
@@ -26,13 +39,12 @@ public class Type {
 		this.typeName = typeName;
 	}
 
-	public List<Shop> getShops() {
-		return shops;
+	public Set<Shop> getShopSet() {
+		return shopSet;
 	}
 
-	public void setShops(List<Shop> shops) {
-		this.shops = shops;
+	public void setShopSet(Set<Shop> shopSet) {
+		this.shopSet = shopSet;
 	}
-	
-	
+
 }

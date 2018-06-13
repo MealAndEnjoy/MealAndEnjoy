@@ -8,7 +8,7 @@ public class Queue {
 	private int queueId;
 	private String qName;//队列名称（中卓B）
 	
-	private List<Number>quequ;
+	private List<Numberr>quequ;
 	private QueueList queueList;
 	public int getQueueId() {
 		return queueId;
@@ -22,10 +22,10 @@ public class Queue {
 	public void setqName(String qName) {
 		this.qName = qName;
 	}
-	public List<Number> getQuequ() {
+	public List<Numberr> getQuequ() {
 		return quequ;
 	}
-	public void setQuequ(List<Number> quequ) {
+	public void setQuequ(List<Numberr> quequ) {
 		this.quequ = quequ;
 	}
 	public QueueList getQueueList() {
