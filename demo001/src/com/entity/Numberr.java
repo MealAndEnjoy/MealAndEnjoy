@@ -20,6 +20,7 @@ public class Numberr {
 	private String state;//状态
 	private Date date;//日期
 	private String qName; //队列名称
+	private String userphone;
 	 @ManyToOne
 	 @JoinColumn(name="userId")
 	private User user;
@@ -56,6 +57,18 @@ public class Numberr {
 	}
 	public void setqName(String qName) {
 		this.qName = qName;
+	}
+	public Shop getShop() {
+		return shop;
+	}
+	public void setShop(Shop shop) {
+		this.shop = shop;
+	}
+	public String getUserphone() {
+		return userphone;
+	}
+	public void setUserphone(String userphone) {
+		this.userphone = userphone;
 	}
 
 }

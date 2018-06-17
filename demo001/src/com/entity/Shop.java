@@ -28,6 +28,8 @@ public class Shop {
 	private String shopIntroduce;//店铺介绍信息
 	private String state;//店铺状态信息（营业中-暂不需要排队；营业中-正在排队；打烊了；暂停营业）
 	private String waitTime;
+	private double lat;
+	private double lng;
 	@OneToOne(cascade=CascadeType.ALL)
 	@JoinColumn(name="userId")
 	private User user;
@@ -49,8 +51,6 @@ public class Shop {
 	private String cover; //封面
 	@OneToMany(mappedBy="shop", targetEntity=Numberr.class,fetch=FetchType.EAGER,cascade=CascadeType.ALL)
 	private Set numberSet = new HashSet<Number>();
-	
-	
 	
 	public int getShopId() {
 		return shopId;
@@ -131,6 +131,18 @@ public class Shop {
 	}
 	public void setNumberSet(Set numberSet) {
 		this.numberSet = numberSet;
+	}
+	public double getLat() {
+		return lat;
+	}
+	public void setLat(double lat) {
+		this.lat = lat;
+	}
+	public double getLng() {
+		return lng;
+	}
+	public void setLng(double lng) {
+		this.lng = lng;
 	}
 	
 

@@ -1,4 +1,4 @@
-package com.dao;
+﻿package com.dao;
 
 import java.util.List;
 
@@ -21,5 +21,16 @@ public class ShopImgDao {
 		query.setParameter(0,shopId);
 		List<ShopImg> sList = query.list();
 		return sList;
+	}
+	//根据id获得商店图片
+	public List<String> selectall(int shopid){
+		Session session = sessionFactory.getCurrentSession();
+		String hql = "select si.shopImgUrl from ShopImg si where si.shop.shopId=?0";
+		Query query = session.createQuery(hql);
+		query.setParameter("0", shopid);
+		List<String> siList = query.list();
+		
+		return siList;
+		
 	}
 }

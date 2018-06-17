@@ -1,4 +1,4 @@
-package com.service;
+﻿package com.service;
 
 import java.util.List;
 
@@ -18,5 +18,11 @@ public class ShopImgService {
 	//根据店铺id查找图片
 	public List<ShopImg> getById(int shopId){
 		return shopImgDao.getById(shopId);
+	}
+        //根据商店id查图片url
+        public List<String> selectall(int shopid,List<String> silist){
+		silist = shopImgDao.selectall(shopid);
+	
+		return silist;
 	}
 }
