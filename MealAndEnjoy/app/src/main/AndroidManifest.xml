@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.example.ll.mealandenjoy">
+
+    <application
+        android:allowBackup="true"
+        android:icon="@mipmap/ic_launcher"
+        android:label="@string/app_name"
+        android:roundIcon="@mipmap/ic_launcher_round"
+        android:supportsRtl="true"
+        android:theme="@style/AppTheme"
+        android:name="entity.UserApplication">
+        <activity android:name=".activities.MainActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity android:name=".activities.HomeActivity">
+            <intent-filter>
+
+                <!-- <action android:name="android.intent.action.MAIN" /> -->
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity android:name=".activities.EntertainmentActivity">
+            <intent-filter>
+
+                <!-- <action android:name="android.intent.action.MAIN" /> -->
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity android:name=".activities.DeliciousFoodActivity">
+            <intent-filter>
+
+                <!-- <action android:name="android.intent.action.MAIN" /> -->
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity android:name=".activities.ShopDetailsActivity">
+            <intent-filter>
+
+                <!--<action android:name="android.intent.action.MAIN" />-->
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity android:name=".activities.RegisterActivity" ></activity>
+        <activity android:name=".activities.LoginActivity"></activity>
+        <activity android:name=".activities.grid_activity"></activity>
+        <activity android:name=".activities.ChangeUsernameActivity"></activity>
+        <activity android:name=".activities.ChangeUserPasswordActivity"></activity>
+        <activity android:name=".activities.ChangeUserPhoneActivity"></activity>
+        <activity android:name=".activities.PersonalInfoActivity"></activity>
+        <activity android:name=".activities.SelectStateActivity"></activity>
+        <activity android:name=".activities.ShopLoginActivity"></activity>
+        <activity android:name=".activities.ShopMainActivity"></activity>
+        <activity android:name=".activities.UserShopCollectionActivity"></activity>
+        <activity android:name=".activities.QueueInfoActivity">
+            <intent-filter>
+                <!--<action android:name="android.intent.action.MAIN" />-->
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+    </application>
+
+</manifest>
