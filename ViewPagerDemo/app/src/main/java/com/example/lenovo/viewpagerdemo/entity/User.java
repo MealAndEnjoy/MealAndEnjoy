@@ -8,24 +8,43 @@ import java.io.Serializable;
 
 public class User implements Serializable {
     private int userId;
-    private String userName;
+    private String username;
     private String password;
     private String imgUrl;
     private String state;//用户账号状态
     private String role;//用户角色  （商家还是用户）
-    public User(String userName, String password) {
-        this.userName = userName;
+    private String phone;//手机号码
+
+    public User(int userId, String username, String password, String imgUrl, String state, String role, String phone) {
+        this.userId = userId;
+        this.username = username;
         this.password = password;
+        this.imgUrl = imgUrl;
+        this.state = state;
+        this.role = role;
+        this.phone = phone;
     }
+
     public User(){
 
     }
-    public String getUserName() {
-        return userName;
+
+    public String getPhone() {
+        return phone;
     }
-    public void setUserName(String userName) {
-        this.userName = userName;
+
+    public void setPhone(String phone) {
+        this.phone = phone;
     }
+
+    public String getUsername() {
+        return username;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
+    }
+
     public String getPassword() {
         return password;
     }

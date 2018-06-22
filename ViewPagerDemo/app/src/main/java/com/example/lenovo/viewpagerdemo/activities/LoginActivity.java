@@ -1,9 +1,7 @@
 package com.example.lenovo.viewpagerdemo.activities;
 
-import android.app.DownloadManager;
 import android.content.Intent;
 import android.os.Handler;
-import android.os.Looper;
 import android.os.Message;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -16,16 +14,18 @@ import android.widget.Toast;
 
 import com.example.lenovo.viewpagerdemo.R;
 import com.example.lenovo.viewpagerdemo.entity.User;
-import com.example.lenovo.viewpagerdemo.fragment.Mine_Fragment;
+import com.example.lenovo.viewpagerdemo.entity.UserApplication;
+import com.google.gson.Gson;
 
 import java.io.IOException;
 
 import okhttp3.Call;
-import okhttp3.Callback;
 import okhttp3.FormBody;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.Response;
+
+import static com.example.lenovo.viewpagerdemo.fragment.Home_Fragment.ip;
 
 public class LoginActivity extends AppCompatActivity {
     //定义用户名和密码控件属性
@@ -54,12 +54,13 @@ public class LoginActivity extends AppCompatActivity {
                     break;
                 case 3:
                     //如果用户名或密码正确，跳转到另一个页面
+                    Bundle b=msg.getData();
+                    User user=(User)b.getSerializable("user");
+                    UserApplication userApplication=(UserApplication) getApplicationContext();
+                    userApplication.setUser(user);
                     Intent intent=new Intent();
                     intent.setClass(getApplicationContext(),MainActivity.class);
-                    User user=new User(edtUserName.getText().toString(),edtPassword.getText().toString());
-                    Bundle b=new Bundle();
-                    b.putSerializable("user",user);
-                    intent.putExtras(b);
+                    /*intent.putExtras(b);*/
                     startActivity(intent);
                     break;
             }
@@ -97,7 +98,7 @@ public class LoginActivity extends AppCompatActivity {
                         FormBody formBody = formBuilder.build();
                         //创建Request请求对象
                         Request request = new Request.Builder()
-                                .url("http://10.7.85.220:8080/demo001/user/logintext.action")
+                                .url("http://"+ip+":8080/demo001/user/logintext.action")
                                 .post(formBody)
                                 .build();
                         //3. 创建用于提交请求的Call对象
@@ -114,6 +115,11 @@ public class LoginActivity extends AppCompatActivity {
                             }else if(str.equals("您输入的用户名或密码不正确")){
                                 message.what=2;
                             }else{
+                                Gson gson=new Gson();
+                                User user=gson.fromJson(str,User.class);
+                                Bundle b=new Bundle();
+                                b.putSerializable("user",user);
+                                message.setData(b);
                                 message.what=3;
                             }
                             //利用Handler对象发送消息

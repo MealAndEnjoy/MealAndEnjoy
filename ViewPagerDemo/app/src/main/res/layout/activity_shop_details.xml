@@ -177,44 +177,254 @@
                 android:id="@+id/below_first"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal"
+                android:orientation="vertical"
                 android:layout_margin="1dp">
-                <View
-                    android:id="@+id/wait_time"
-                    android:layout_width="110dp"
-                    android:layout_height="110dp"
-                    android:background="@drawable/btn_shape"
+                    <RelativeLayout
+                        android:id="@+id/renu2"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentStart="true"
+                        android:layout_alignParentTop="true"
+                        android:background="@drawable/linborder"
+                        android:layout_margin="3dp"
+                        >
 
-                    />
+                        <TextView
+                            android:id="@+id/textView"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="小桌"
+                            android:textColor="#000000"
+                            android:textSize="16dp"
+                            android:paddingLeft="50dp"
+                            android:paddingTop="3dp"/>
+
+                        <TextView
+                            android:id="@+id/textView2"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_below="@+id/textView"
+                            android:text="1-4人"
+                            android:textSize="15dp"
+                            android:paddingLeft="50dp" />
+                        <TextView
+                            android:id="@+id/textView3"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="正在排队"
+                            android:textSize="16dp"
+                            android:layout_toRightOf="@+id/textView"
+                            android:paddingLeft="55dp"
+                            android:layout_marginTop="13dp"
+                            />
+                        <TextView
+                            android:id="@+id/numbe"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_above="@+id/textView2"
+                            android:layout_toEndOf="@+id/textView3"
+                            android:text="8"
+                            android:textColor="#FF4040"
+                            android:textSize="20dp"
+                            android:layout_alignBaseline="@id/textView3"/>
+                        <TextView
+                            android:id="@+id/textView4"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="桌"
+                            android:layout_toRightOf="@+id/numbe"
+                            android:textSize="16dp"
+                            android:layout_alignBaseline="@id/numbe"/>
+                            />
+                        <Button
+                            android:id="@+id/getnum"
+                            android:layout_width="wrap_content"
+                            android:layout_height="30dp"
+                            android:layout_marginTop="8dp"
+                            android:layout_marginRight="6dp"
+                            android:layout_alignParentRight="true"
+                            android:background="@drawable/btn_shape2"
+                            android:text="取号"
+                            android:textSize="15dp"
+                            android:textColor="#FFFFFF"
+                            android:visibility="visible"
+                            />
+                        <Button
+                            android:id="@+id/cancelNum"
+                            android:layout_width="wrap_content"
+                            android:layout_height="30dp"
+                            android:layout_marginTop="8dp"
+                            android:layout_marginRight="6dp"
+                            android:layout_alignParentRight="true"
+                            android:background="@drawable/btn_shape2"
+                            android:text="取消排队"
+                            android:textSize="15dp"
+                            android:textColor="#FFFFFF"
+                            android:visibility="gone"
+                            />
+                    </RelativeLayout>
                 <RelativeLayout
+                    android:id="@+id/renu3"
                     android:layout_width="match_parent"
-                    android:layout_height="110dp"
-                    android:orientation="vertical">
-
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/linborder"
+                    android:layout_margin="3dp"
+                    >
                     <TextView
+                        android:id="@+id/textView5"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_alignParentTop="true"
-                        android:layout_centerHorizontal="true"
-                        android:layout_marginTop="24dp"
-                        android:text="等待时间仅供参考"
+                        android:text="中桌"
+                        android:textColor="#000000"
                         android:textSize="16dp"
-                        android:id="@+id/textView" />
+                        android:paddingLeft="50dp"
+                        android:paddingTop="3dp"/>
+
+                    <TextView
+                        android:id="@+id/textView6"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@+id/textView5"
+                        android:text="5-6人"
+                        android:textSize="15dp"
+                        android:paddingLeft="50dp" />
+                    <TextView
+                        android:id="@+id/textView7"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="正在排队"
+                        android:textSize="16dp"
+                        android:layout_toRightOf="@+id/textView5"
+                        android:paddingLeft="55dp"
+                        android:layout_marginTop="13dp"
+                        />
+                    <TextView
+                        android:id="@+id/numbe2"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_above="@+id/textView6"
+                        android:layout_toEndOf="@+id/textView7"
+                        android:text="8"
+                        android:textColor="#FF4040"
+                        android:textSize="20dp"
+                        android:layout_alignBaseline="@id/textView7"/>
+                    <TextView
+                        android:id="@+id/textView8"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="桌"
+                        android:layout_toRightOf="@+id/numbe2"
+                        android:textSize="16dp"
+                        android:layout_alignBaseline="@id/numbe2"/>
+                    />
 
                     <Button
-                        android:id="@+id/getnum"
-                        android:layout_width="160dp"
-                        android:layout_height="40dp"
-                        android:layout_below="@+id/textView"
-                        android:layout_centerHorizontal="true"
-                        android:layout_marginTop="15dp"
-                        android:height="30dp"
-                        android:background="@drawable/btn_shape"
-                        android:includeFontPadding="true"
-                        android:padding="0dp"
-                        android:paddingTop="1px"
+                        android:id="@+id/getnum2"
+                        android:layout_width="wrap_content"
+                        android:layout_height="30dp"
+                        android:layout_marginTop="8dp"
+                        android:layout_marginRight="6dp"
+                        android:layout_alignParentRight="true"
+                        android:background="@drawable/btn_shape2"
                         android:text="取号"
-                        android:textSize="14dp"
+                        android:textSize="15dp"
+                        android:textColor="#FFFFFF"
+                        />
+                    <Button
+                        android:id="@+id/cancelNum2"
+                        android:layout_width="wrap_content"
+                        android:layout_height="30dp"
+                        android:layout_marginTop="8dp"
+                        android:layout_marginRight="6dp"
+                        android:layout_alignParentRight="true"
+                        android:background="@drawable/btn_shape2"
+                        android:text="取消排队"
+                        android:textSize="15dp"
+                        android:textColor="#FFFFFF"
+                        android:visibility="gone"
+                        />
+                </RelativeLayout>
+                <RelativeLayout
+                    android:id="@+id/renu4"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentStart="true"
+                    android:layout_alignParentTop="true"
+                    android:background="@drawable/linborder"
+                    android:layout_margin="3dp"
+                    >
+
+                    <TextView
+                        android:id="@+id/textView9"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="大桌"
+                        android:textColor="#000000"
+                        android:textSize="16dp"
+                        android:paddingLeft="50dp"
+                        android:paddingTop="3dp"/>
+
+                    <TextView
+                        android:id="@+id/textView10"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@+id/textView9"
+                        android:text="7人以上"
+                        android:textSize="15dp"
+                        android:paddingLeft="50dp" />
+                    <TextView
+                        android:id="@+id/textView11"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="正在排队"
+                        android:textSize="16dp"
+                        android:layout_toRightOf="@+id/textView9"
+                        android:paddingLeft="55dp"
+                        android:layout_marginTop="13dp"
+                        />
+                    <TextView
+                        android:id="@+id/numbe3"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_above="@+id/textView10"
+                        android:layout_toEndOf="@+id/textView11"
+                        android:text="8"
+                        android:textColor="#FF4040"
+                        android:textSize="20dp"
+                        android:layout_alignBaseline="@id/textView11"/>
+                    <TextView
+                        android:id="@+id/textView12"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="桌"
+                        android:layout_toRightOf="@+id/numbe3"
+                        android:textSize="16dp"
+                        android:layout_alignBaseline="@id/numbe3"/>
+                    />
+                    <Button
+                        android:id="@+id/getnum3"
+                        android:layout_width="wrap_content"
+                        android:layout_height="30dp"
+                        android:layout_marginTop="8dp"
+                        android:layout_marginRight="6dp"
+                        android:layout_alignParentRight="true"
+                        android:background="@drawable/btn_shape2"
+                        android:text="取号"
+                        android:textSize="15dp"
+                        android:textColor="#FFFFFF"
+                        />
+                    <Button
+                        android:id="@+id/cancelNum3"
+                        android:layout_width="wrap_content"
+                        android:layout_height="30dp"
+                        android:layout_marginTop="8dp"
+                        android:layout_marginRight="6dp"
+                        android:layout_alignParentRight="true"
+                        android:background="@drawable/btn_shape2"
+                        android:text="取消排队"
+                        android:textSize="15dp"
+                        android:textColor="#FFFFFF"
+                        android:visibility="gone"
                         />
                 </RelativeLayout>
             </LinearLayout>
@@ -440,7 +650,6 @@
                     android:layout_width="match_parent"
                     android:layout_height="60dp"
                     >
-
                 </ListView>
 
             </LinearLayout>

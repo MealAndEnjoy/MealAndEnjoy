@@ -25,6 +25,8 @@ import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.List;
 
+import static com.example.lenovo.viewpagerdemo.fragment.Home_Fragment.ip;
+
 /**
  * Created by Lenovo1 on 2018/5/31.
  */
@@ -36,7 +38,7 @@ public class EntertainmentAdapter extends BaseAdapter{
     private int mLayout;
     //数据源
     private List<HomeShopList> shopData;
-    public static final String PIC_URL = "http://10.7.85.220:8080/demo001";
+    public static final String PIC_URL = "http://"+ip+":8080/demo001";
     private String path;
 
     public EntertainmentAdapter(Context context,int mLayout,List<HomeShopList> shopData){

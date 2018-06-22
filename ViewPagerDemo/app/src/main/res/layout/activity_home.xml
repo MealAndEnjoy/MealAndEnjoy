@@ -13,7 +13,6 @@
         android:layout_height="match_parent"
         android:orientation="vertical"
         >
-
         <!--顶部搜索框部分-->
         <LinearLayout
             android:layout_width="match_parent"
@@ -45,14 +44,15 @@
                 android:src="@mipmap/tb6" />
         </LinearLayout>
 
-
         <!--轮播图-->
         <LinearLayout
             android:id="@+id/carousel_pic"
             android:orientation="vertical"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_centerHorizontal="true">
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="2dp"
+            android:layout_marginBottom="2dp">
             <!--android:layout_marginBottom="250dp"-->
             <FrameLayout
                 android:layout_marginTop="5dp"
@@ -86,8 +86,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:background="@mipmap/food"
-                 />
+                android:background="@mipmap/food1"
+                />
 
             <ImageButton
                 android:id="@+id/imgbtn_entertain"
@@ -100,9 +100,5 @@
             android:id="@+id/lv_shops"
             android:layout_width="match_parent"
             android:layout_height="match_parent"></ListView>
-        <ImageView
-            android:id="@+id/demo"
-            android:layout_width="200dp"
-            android:layout_height="200dp" />
     </LinearLayout>
 </ScrollView>

@@ -71,6 +71,7 @@
         android:layout_below="@id/v_line2" />
 
     <TextView
+        android:id="@+id/tv_uname"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignBottom="@+id/v_line3"
@@ -105,6 +106,7 @@
         android:layout_below="@id/v_line3" />
 
     <TextView
+        android:id="@+id/tv_uphone"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignBottom="@id/v_line4"

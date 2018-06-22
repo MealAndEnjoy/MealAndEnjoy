@@ -1,15 +1,19 @@
 package com.example.lenovo.viewpagerdemo.entity;
 
+import java.io.Serializable;
+
 /**
  * Created by lenovo on 2018/5/25.
  */
 
-public class ShopDemo {
+public class ShopDemo implements Serializable{
     private int shopdId;
     private String shopdName;
     private String shopimg;
     private double lat;
     private double lng;
+    private String address;
+
 
     public int getShopdId() {
         return shopdId;
@@ -49,5 +53,13 @@ public class ShopDemo {
 
     public void setLng(double lng) {
         this.lng = lng;
+    }
+
+    public String getAddress() {
+        return address;
+    }
+
+    public void setAddress(String address) {
+        this.address = address;
     }
 }

@@ -11,24 +11,24 @@ import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.example.lenovo.viewpagerdemo.CommentList;
-import com.example.lenovo.viewpagerdemo.HomeShopList;
+import com.example.lenovo.viewpagerdemo.entity.HomeShopList;
 import com.example.lenovo.viewpagerdemo.R;
 
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URL;
 import java.util.List;
 
+import static com.example.lenovo.viewpagerdemo.fragment.Home_Fragment.ip;
+
 /**
  * Created by lenovo on 2018/5/16.
  */
 
 public class CustomHomeAdapter extends BaseAdapter {
-    public static final String PIC_URL = "http://10.7.85.138:8080/demo001";
+    public static final String PIC_URL = "http://"+ip+":8080/demo001";
     public String path;
     //上下文环境
     private Context mContext;
@@ -40,6 +40,7 @@ public class CustomHomeAdapter extends BaseAdapter {
         this.mContext = context;
         this.mLayout = mLayout;
         this.shopData = shopData;
+        //getFilesDir()方法用于获取/data/data/<application package>/files目录
         this.path = context.getFilesDir().getAbsolutePath();
     }
     /**
@@ -96,16 +97,17 @@ public class CustomHomeAdapter extends BaseAdapter {
             //3. 获取布局文件中的控件对象
             viewHolder.textView = convertView.findViewById(R.id.tv_shop_name);
             viewHolder.imageView = convertView.findViewById(R.id.iv_shop);
-
-
             convertView.setTag(viewHolder);
         }else {
             viewHolder = (ViewHolder) convertView.getTag();
         }
         File file = new File(path,shopData.get(mposition).getShopimg());
+        //file对象的方法 !file.exists()返回false，不存在!file.exists()返回true
         if(!file.exists()){
             downloadpic(shopData.get(mposition).getShopimg(),PIC_URL+shopData.get(mposition).getShopimg());
         }else{
+            //根据
+            Log.i("ceshi","tupiancunzai");
             Bitmap bitmap = BitmapFactory.decodeFile(file.getAbsolutePath());
             viewHolder.imageView.setImageBitmap(bitmap);
         }
@@ -114,7 +116,6 @@ public class CustomHomeAdapter extends BaseAdapter {
 
         return convertView;
     }
-
     public void downloadpic(final String name,final String picurl){
         new Thread(new Runnable() {
             @Override
@@ -150,6 +151,7 @@ public class CustomHomeAdapter extends BaseAdapter {
             }
         }).start();
     }
+
 
 
 }

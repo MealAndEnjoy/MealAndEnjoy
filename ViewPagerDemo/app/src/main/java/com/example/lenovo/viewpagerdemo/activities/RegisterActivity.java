@@ -32,6 +32,8 @@ import okhttp3.Request;
 import okhttp3.RequestBody;
 import okhttp3.Response;
 
+import static com.example.lenovo.viewpagerdemo.fragment.Home_Fragment.ip;
+
 public class RegisterActivity extends AppCompatActivity {
     private EditText edt_username;
     private EditText edt_password;
@@ -160,7 +162,7 @@ public class RegisterActivity extends AppCompatActivity {
                             FormBody formBody = formBuilder.build();
                             //创建Request请求对象
                             Request request = new Request.Builder()
-                                    .url("http://10.7.85.220:8080/demo001/user/register.action")
+                                    .url("http://"+ip+":8080/demo001/user/register.action")
                                     .post(formBody)
                                     .build();
                             //3. 创建用于提交请求的Call对象

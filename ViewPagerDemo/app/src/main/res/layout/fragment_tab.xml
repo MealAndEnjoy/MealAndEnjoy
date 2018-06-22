@@ -10,15 +10,14 @@
         android:layout_height="match_parent">
         <!--添加选项卡控件-->
         <TabWidget
-            android:id="@android:id/tabs"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_alignParentBottom="true"
-            android:padding="4dp"
-            android:background="#F5F5F5"
-            >
+        android:id="@android:id/tabs"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:padding="4dp"
+        android:background="#F5F5F5"
+        >
         </TabWidget>
-        <!--添加选项卡对应的选项页面-->
         <FrameLayout
             android:id="@android:id/tabcontent"
             android:layout_width="match_parent"
@@ -26,4 +25,5 @@
             android:layout_above="@android:id/tabs">
         </FrameLayout>
     </RelativeLayout>
+
 </android.support.v4.app.FragmentTabHost>
