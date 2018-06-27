@@ -1,15 +1,21 @@
 package com.example.ll.mealandenjoy.activities;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
+import android.os.IBinder;
 import android.os.Message;
 import android.support.v7.app.AppCompatActivity;
 import android.text.TextUtils;
 import android.util.Log;
+import android.view.MotionEvent;
 import android.view.View;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageButton;
+import android.widget.TextView;
 import android.widget.Toast;
 
 
@@ -34,6 +40,8 @@ public class RegisterActivity extends AppCompatActivity {
     private EditText edt_phone;
     private Button btn_register;
     private Thread thread;
+    private TextView old_user;
+    private ImageButton register_imgbtn;
     //定义OkHttpClient对象
     private OkHttpClient okHttpClient;
     //定义handler
@@ -88,7 +96,7 @@ public class RegisterActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_register);
+        setContentView(R.layout.new_activity_register);
         //初始化OkHttpClient对象
         okHttpClient = new OkHttpClient();
 
@@ -98,7 +106,8 @@ public class RegisterActivity extends AppCompatActivity {
         edt_repassword = findViewById(R.id.edt_repassword);
         btn_register = findViewById(R.id.btn_register);
         edt_phone = findViewById(R.id.edt_phone);
-
+        old_user = findViewById(R.id.old_user);
+        register_imgbtn = findViewById(R.id.register_imgbtn);
         //为按钮注册事件监听器
         btn_register.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -106,6 +115,20 @@ public class RegisterActivity extends AppCompatActivity {
                 //启动线程
                 thread = new Register();
                 thread.start();
+            }
+        });
+        old_user.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent();
+                intent.setClass(RegisterActivity.this,LoginActivity.class);
+                startActivity(intent);
+            }
+        });
+        register_imgbtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
             }
         });
     }
@@ -155,7 +178,7 @@ public class RegisterActivity extends AppCompatActivity {
                             FormBody formBody = formBuilder.build();
                             //创建Request请求对象
                             Request request = new Request.Builder()
-                                    .url("http://"+ip+":8080/demo001/user/register.action")
+                                    .url("http://"+ip+":8080/MealAndEnjoyServer/user/register.action")
                                     .post(formBody)
                                     .build();
                             //3. 创建用于提交请求的Call对象
@@ -193,6 +216,58 @@ public class RegisterActivity extends AppCompatActivity {
                 }
             }
             handler.removeCallbacks(thread);
+        }
+    }
+    //点击空白处隐藏软键盘
+    @Override
+    public boolean dispatchTouchEvent(MotionEvent ev) {
+        if (ev.getAction() == MotionEvent.ACTION_DOWN) {
+
+            // 获得当前得到焦点的View，一般情况下就是EditText（特殊情况就是轨迹求或者实体案件会移动焦点）
+            View v = getCurrentFocus();
+
+            if (isShouldHideInput(v, ev)) {
+                hideSoftInput(v.getWindowToken());
+            }
+        }
+        return super.dispatchTouchEvent(ev);
+    }
+
+    /**
+     * 根据EditText所在坐标和用户点击的坐标相对比，来判断是否隐藏键盘，因为当用户点击EditText时没必要隐藏
+     *
+     * @param v
+     * @param event
+     * @return
+     */
+    private boolean isShouldHideInput(View v, MotionEvent event) {
+        if (v != null && (v instanceof EditText)) {
+            int[] l = { 0, 0 };
+            v.getLocationInWindow(l);
+            int left = l[0], top = l[1], bottom = top + v.getHeight(), right = left
+                    + v.getWidth();
+            if (event.getX() > left && event.getX() < right
+                    && event.getY() > top && event.getY() < bottom) {
+                // 点击EditText的事件，忽略它。
+                return false;
+            } else {
+                return true;
+            }
+        }
+        // 如果焦点不是EditText则忽略，这个发生在视图刚绘制完，第一个焦点不在EditView上，和用户用轨迹球选择其他的焦点
+        return false;
+    }
+
+    /**
+     * 多种隐藏软件盘方法的其中一种
+     *
+     * @param token
+     */
+    private void hideSoftInput(IBinder token) {
+        if (token != null) {
+            InputMethodManager im = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+            im.hideSoftInputFromWindow(token,
+                    InputMethodManager.HIDE_NOT_ALWAYS);
         }
     }
 }

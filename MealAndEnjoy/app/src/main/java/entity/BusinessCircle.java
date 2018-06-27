@@ -1,41 +1,53 @@
 package entity;
 
 /**
- * Created by 张刘洋 on 2018/5/28.
+ * Created by lenovo on 2018/6/6.
  */
 
 public class BusinessCircle {
-    private String name;
-    private int imgurl;
-    private double juli;//距离
+    private int businesscircleid;
+    private String businesscirclename;
+    private String imgurl;
+    private double lat;
+    private double lng;
 
-    public BusinessCircle(String name, int imgurl, double juli) {
-        this.name = name;
-        this.imgurl = imgurl;
-        this.juli = juli;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public int getImgurl() {
+    public String getimgurl() {
         return imgurl;
     }
 
-    public void setImgurl(int imgurl) {
+    public void setimgurl(String imgurl) {
         this.imgurl = imgurl;
     }
 
-    public double getJuli() {
-        return juli;
+    public int getBusinesscircleid() {
+        return businesscircleid;
     }
 
-    public void setJuli(double juli) {
-        this.juli = juli;
+    public void setBusinesscircleid(int businesscircleid) {
+        this.businesscircleid = businesscircleid;
+    }
+
+    public String getBusinesscirclename() {
+        return businesscirclename;
+    }
+
+    public void setBusinesscirclename(String businesscirclename) {
+        this.businesscirclename = businesscirclename;
+    }
+
+    public double getLat() {
+        return lat;
+    }
+
+    public void setLat(double lat) {
+        this.lat = lat;
+    }
+
+    public double getLng() {
+        return lng;
+    }
+
+    public void setLng(double lng) {
+        this.lng = lng;
     }
 }

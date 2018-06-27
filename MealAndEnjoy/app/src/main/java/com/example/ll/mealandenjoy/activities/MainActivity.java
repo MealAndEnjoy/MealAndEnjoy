@@ -59,4 +59,18 @@ public class MainActivity extends AppCompatActivity {
         return view;
     }
 
+    /*@Override
+    protected void onResume() {
+        int id = getIntent().getIntExtra("个人界面", 7);
+
+        if (id == 2 ) {
+            tabHost.setCurrentTab(2);
+            //3代表”我的京东“所在条目的位置，参考下面的源码即可理解
+        }else {
+            tabHost.setCurrentTab(0);
+
+        }
+
+        super.onResume();
+    }*/
 }

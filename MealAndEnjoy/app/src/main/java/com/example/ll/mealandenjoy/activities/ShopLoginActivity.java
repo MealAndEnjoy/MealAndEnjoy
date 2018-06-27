@@ -94,7 +94,7 @@ public class ShopLoginActivity extends AppCompatActivity {
                             FormBody formBody = formBuilder.build();
                             //创建Request请求对象
                             Request request = new Request.Builder()
-                                    .url("http://"+ip+":8080/demo001/user/shoplogin.action")
+                                    .url("http://"+ip+":8080/MealAndEnjoyServer/user/shoplogin.action")
                                     .post(formBody)
                                     .build();
                             //3. 创建用于提交请求的Call对象

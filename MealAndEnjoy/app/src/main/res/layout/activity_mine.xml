@@ -115,7 +115,7 @@
         android:layout_alignParentStart="true"
         android:layout_width="130dp"
         android:layout_height="90dp"
-        android:background="@mipmap/shouc">
+        android:background="@mipmap/shoucang">
     </ImageButton>
 
     <!--下面这两段是中间细的竖线-->
@@ -145,7 +145,7 @@
         android:layout_toEndOf="@id/tc_1"
         android:layout_width="130dp"
         android:layout_height="90dp"
-        android:background="@mipmap/kqua">
+        android:background="@mipmap/kquan">
     </ImageButton>
     <!--卡券结束-->
 
@@ -176,7 +176,7 @@
         android:layout_toEndOf="@id/tc_2"
         android:layout_width="130dp"
         android:layout_height="90dp"
-        android:background="@mipmap/wdpj">
+        android:background="@mipmap/wdpjia">
     </ImageButton>
     <!--评价结束-->
 
@@ -239,13 +239,34 @@
         android:layout_alignParentStart="true"
         android:layout_below="@+id/tc_5"
         android:background="#ffffff"
-        android:text="商店>"/>
-    <!--我们结束-->
+        android:text="商         店>"/>
+    <!--商店结束-->
 
     <!--细横线tc_5-->
     <TextView
         android:id="@+id/tc_6"
         android:layout_below="@id/bt_8"
+        android:layout_width="fill_parent"
+        android:layout_height="4dp"
+        android:background="#f3eded">
+    </TextView>
+    <!--细横线结束-->
+
+    <!--商店按钮-->
+    <Button
+        android:id="@+id/bt_9"
+        android:layout_width="396dip"
+        android:layout_height="34dp"
+        android:layout_alignParentStart="true"
+        android:layout_below="@+id/tc_6"
+        android:background="#ffffff"
+        android:text="注         销>"/>
+    <!--商店结束-->
+
+    <!--细横线tc_5-->
+    <TextView
+        android:id="@+id/tc_7"
+        android:layout_below="@id/bt_9"
         android:layout_width="fill_parent"
         android:layout_height="4dp"
         android:background="#f3eded">

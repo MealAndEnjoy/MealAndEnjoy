@@ -11,6 +11,8 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
+import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -32,6 +34,7 @@ import adapters.DeliciousFoodAdapter;
 import adapters.MyPagerAdapter;
 import entity.HomeShopList;
 import entity.ShopDemo;
+import map.map_activity;
 import okhttp3.Call;
 import okhttp3.MediaType;
 import okhttp3.OkHttpClient;
@@ -56,13 +59,22 @@ public class DeliciousFoodActivity extends AppCompatActivity implements ViewPage
 
     private DeliciousFoodActivity.MyHandler mHandler;
     private Thread mThread;
-
+    private Button map_model;
+    private EditText editText;
     //主线程新建handler获得子线程服务器请求数据更新UI
     private ListView listView;
     private OkHttpClient ok;
     private ArrayList<ShopDemo> s;
     //获取布局使用
     private ImageButton btn_return;
+    private ImageButton btn_1;
+    private ImageButton btn_2;
+    private ImageButton btn_3;
+    private ImageButton btn_4;
+    private ImageButton btn_5;
+    private ImageButton btn_6;
+    private ImageButton btn_7;
+    private ImageButton btn_8;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -77,7 +89,29 @@ public class DeliciousFoodActivity extends AppCompatActivity implements ViewPage
         mViewPager.setOnTouchListener(this);
         mViewPager.addOnPageChangeListener(this);
         isAutoPlay = true;
-
+        //12345
+        map_model = findViewById(R.id.map_moudle);
+        map_model.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent();
+                intent.setClass(DeliciousFoodActivity.this, map_activity.class);
+                startActivity(intent);
+            }
+        });
+        //给按钮注册事件监听器
+        editText = findViewById(R.id.search_et_input);
+        editText.setFocusable(true);
+        editText.setFocusableInTouchMode(false);
+        editText.requestFocus();
+        editText.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent();
+                intent.setClass(DeliciousFoodActivity.this, SearchActivity.class);
+                startActivity(intent);
+            }
+        });
         //TODO: 添加ImageView
         addImageView();
         mAdapter.notifyDataSetChanged();
@@ -89,33 +123,113 @@ public class DeliciousFoodActivity extends AppCompatActivity implements ViewPage
         listView = findViewById(R.id.lv_foodshops);
         mThread.start();
         //获取布局文件中控件对象
-        btn_return = findViewById(R.id.imgbtn_chcity);
+        btn_return = findViewById(R.id.btn_left);
+        btn_1  = findViewById(R.id.btn_1);
+        btn_2  = findViewById(R.id.btn_2);
+        btn_3  = findViewById(R.id.btn_3);
+        btn_4  = findViewById(R.id.btn_4);
+        btn_5  = findViewById(R.id.btn_5);
+        btn_6  = findViewById(R.id.btn_6);
+        btn_7  = findViewById(R.id.btn_7);
+        btn_8  = findViewById(R.id.btn_8);
         btn_return.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 finish();
             }
         });
+        btn_1.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent();
+                intent.setClass(DeliciousFoodActivity.this,FoodType1Activity.class);
+                startActivity(intent);
+            }
+        });
+        btn_2.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent();
+                intent.setClass(DeliciousFoodActivity.this,FoodType2Activity.class);
+                startActivity(intent);
+            }
+        });
+        btn_3.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent();
+                intent.setClass(DeliciousFoodActivity.this,FoodType3Activity.class);
+                startActivity(intent);
+            }
+        });
+        btn_4.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent();
+                intent.setClass(DeliciousFoodActivity.this,FoodType4Activity.class);
+                startActivity(intent);
+            }
+        });
+        btn_5.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent();
+                intent.setClass(DeliciousFoodActivity.this,FoodType5Activity.class);
+                startActivity(intent);
+            }
+        });
+        btn_6.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent();
+                intent.setClass(DeliciousFoodActivity.this,FoodType6Activity.class);
+                startActivity(intent);
+            }
+        });
+        btn_7.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent();
+                intent.setClass(DeliciousFoodActivity.this,FoodType7Activity.class);
+                startActivity(intent);
+            }
+        });
+        btn_8.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent();
+                intent.setClass(DeliciousFoodActivity.this,FoodType8Activity.class);
+                startActivity(intent);
+            }
+        });
     }
     private void addImageView(){
-        ImageView view0 = new ImageView(this);
-        view0.setImageResource(R.mipmap.p5);
         ImageView view1 = new ImageView(this);
         view1.setImageResource(R.mipmap.p2);
         ImageView view2 = new ImageView(this);
-        view2.setImageResource(R.mipmap.p3);
+        view2.setImageResource(R.mipmap.p5);
         ImageView view3 = new ImageView(this);
-        view3.setImageResource(R.mipmap.p4);
+        view3.setImageResource(R.mipmap.p6);
+        ImageView view4= new ImageView(this);
+        view4.setImageResource(R.mipmap.p7);
+        ImageView view5 = new ImageView(this);
+        view5.setImageResource(R.mipmap.p8);
+        ImageView view6 = new ImageView(this);
+        view6.setImageResource(R.mipmap.p9);
 
-        view0.setScaleType(ImageView.ScaleType.CENTER_CROP);
         view1.setScaleType(ImageView.ScaleType.CENTER_CROP);
         view2.setScaleType(ImageView.ScaleType.CENTER_CROP);
         view3.setScaleType(ImageView.ScaleType.CENTER_CROP);
+        view4.setScaleType(ImageView.ScaleType.CENTER_CROP);
+        view5.setScaleType(ImageView.ScaleType.CENTER_CROP);
+        view6.setScaleType(ImageView.ScaleType.CENTER_CROP);
 
-        mItems.add(view0);
         mItems.add(view1);
         mItems.add(view2);
         mItems.add(view3);
+        mItems.add(view4);
+        mItems.add(view5);
+        mItems.add(view6);
     }
 
     private void setBottomIndicator() {
@@ -279,6 +393,8 @@ public class DeliciousFoodActivity extends AppCompatActivity implements ViewPage
             HomeShopList shopList = new HomeShopList();
             shopList.setShopname(list.get(i).getShopdName());
             shopList.setShopimg(list.get(i).getShopimg());
+            shopList.setAllNum(list.get(i).getAllNum());
+            shopList.setAvgCost(list.get(i).getAvgCost());
             shopLists.add(shopList);
         }
         return shopLists;
@@ -291,7 +407,7 @@ public class DeliciousFoodActivity extends AppCompatActivity implements ViewPage
             MediaType type = MediaType.parse("text/plain;charset=UTF-8");
             RequestBody body = RequestBody.create(type,str);
             Request.Builder builder = new Request.Builder();
-            builder.url("http://"+ip+":8080/demo001/shop/getDelishops.action");
+            builder.url("http://"+ip+":8080/MealAndEnjoyServer/shop/getDelishops.action");
             builder.post(body);
             Request request = builder.build();
             Call call = ok.newCall(request);

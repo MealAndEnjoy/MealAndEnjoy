@@ -31,7 +31,7 @@ import static fragment.Home_Fragment.ip;
  */
 
 public class CustomHomeAdapter extends BaseAdapter {
-    public static final String PIC_URL = "http://"+ip+":8080/demo001";
+    public static final String PIC_URL = "http://"+ip+":8080/MealAndEnjoyServer";
     public String path;
     //上下文环境
     private Context mContext;
@@ -76,6 +76,8 @@ public class CustomHomeAdapter extends BaseAdapter {
     private class ViewHolder{
         private TextView textView;
         private ImageView imageView;
+        private TextView allNum;
+        private TextView tv_shop_price ;
     }
     /**
      *
@@ -100,6 +102,8 @@ public class CustomHomeAdapter extends BaseAdapter {
             //3. 获取布局文件中的控件对象
             viewHolder.textView = convertView.findViewById(R.id.tv_shop_name);
             viewHolder.imageView = convertView.findViewById(R.id.iv_shop);
+            viewHolder.allNum = convertView.findViewById(R.id.tv_waitNum2);
+            viewHolder.tv_shop_price = convertView.findViewById(R.id.tv_shop_price2);
             convertView.setTag(viewHolder);
         }else {
             viewHolder = (ViewHolder) convertView.getTag();
@@ -116,6 +120,8 @@ public class CustomHomeAdapter extends BaseAdapter {
         }
         HomeShopList shopList = shopData.get(mposition);
         viewHolder.textView.setText(shopList.getShopname());
+        viewHolder.tv_shop_price.setText(shopList.getAvgCost());
+        viewHolder.allNum.setText(shopList.getAllNum());
 
         return convertView;
     }

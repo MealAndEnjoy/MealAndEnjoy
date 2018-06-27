@@ -16,6 +16,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -62,6 +63,9 @@ public class ShopDetailsActivity extends AppCompatActivity {
     private Button btn_cancelNum1;
     private Button btn_cancelNum2;
     private Button btn_cancelNum3;
+    private ImageButton ivCollection;
+    private boolean flag;
+    private ImageButton imgbtnRetn;
      //针对即使获取了拨打电话的权限依然报错问题的解决方案
     private static final int MY_PERMISSIONS_REQUEST_CALL_PHONE = 1;
     Handler handler = new Handler() {
@@ -73,10 +77,13 @@ public class ShopDetailsActivity extends AppCompatActivity {
                     Num nm = (Num)b.getSerializable("num");
                     int qNum = b.getInt("qName");
                     String qq = String.valueOf(qNum);
+                    String jc = b.getString("jugCollect");
                     Log.i("ceshi",qq+"判断序号");
+                    Log.i("ceshi2222222",jc);
                     little_num.setText(String.valueOf(nm.getLittleNum()));
                     middle_num.setText(String.valueOf(nm.getMiddleNum()));
                     large_num.setText(String.valueOf(nm.getLargeNum()));
+                    //按钮显示
                     if (qNum == 1){
                         btn_cancelNum1.setVisibility(View.VISIBLE);
                         btn_getNum2.setVisibility(View.GONE);
@@ -92,7 +99,11 @@ public class ShopDetailsActivity extends AppCompatActivity {
                     }else{
 
                     }
-
+                    //收藏显示
+                    if(jc.equals("1")){
+                        ivCollection.setImageResource(R.drawable.bheart);
+                        flag = true ;
+                    }
                     btn_getNum1.setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View v) {
@@ -177,6 +188,56 @@ public class ShopDetailsActivity extends AppCompatActivity {
                     thread = new MyThread();
                     thread.start();
                     break;
+                case 6:
+                    Toast.makeText(getApplicationContext(),"您已收藏成功~",Toast.LENGTH_SHORT).show();
+                    ivCollection.setImageResource(R.drawable.bheart);
+                    flag=true;
+                    break;
+                case 7:
+                    Toast.makeText(getApplicationContext(),"收藏失败，请稍候再试~",Toast.LENGTH_SHORT).show();
+                    break;
+                case 8:
+                    Toast.makeText(getApplicationContext(),"您已取消收藏~",Toast.LENGTH_SHORT).show();
+                    ivCollection.setImageResource(R.drawable.heart);
+                    flag=false;
+                    break;
+                case 9:
+                    Toast.makeText(getApplicationContext(),"取消收藏失败，请稍候再试~",Toast.LENGTH_SHORT).show();
+                    break;
+                case 10:
+                    Bundle b2 = msg.getData();
+                    Num nm2 = (Num)b2.getSerializable("num");
+                    int qNum2 = b2.getInt("qName");
+                    String qq2 = String.valueOf(qNum2);
+                    Log.i("ceshi",qq2+"判断序号");
+                    little_num.setText(String.valueOf(nm2.getLittleNum()));
+                    middle_num.setText(String.valueOf(nm2.getMiddleNum()));
+                    large_num.setText(String.valueOf(nm2.getLargeNum()));
+                    btn_getNum1.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            Toast.makeText(getApplicationContext(),"登陆后才可取号呦~",Toast.LENGTH_SHORT).show();
+                        }
+                    });
+                    btn_getNum2.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            Toast.makeText(getApplicationContext(),"登陆后才可取号呦~",Toast.LENGTH_SHORT).show();
+                        }
+                    });
+                    btn_getNum3.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            Toast.makeText(getApplicationContext(),"登陆后才可取号呦~",Toast.LENGTH_SHORT).show();
+                        }
+                    });
+                    ivCollection.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            Toast.makeText(getApplicationContext(),"登陆后才可收藏呦~",Toast.LENGTH_SHORT).show();
+                        }
+                    });
+                    break;
             }
             super.handleMessage(msg);
         }
@@ -188,6 +249,7 @@ public class ShopDetailsActivity extends AppCompatActivity {
         setContentView(R.layout.activity_shop_details);
         //获取控件
         getViews();
+        flag=false;
         //注册事件监听器
         ButtonClickListener listener = new ButtonClickListener();
         btn_call.setOnClickListener(listener);
@@ -203,6 +265,97 @@ public class ShopDetailsActivity extends AppCompatActivity {
         Bundle bundle = intent.getExtras();
         ShopDemo shopDemo = (ShopDemo) bundle.getSerializable("shopdemo");
         shopId = shopDemo.getShopdId();
+        //为收藏按钮注册点击事件监听器
+        ivCollection.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(flag == false){
+                    new Thread() {
+                        @Override
+                        public void run() {
+                            //往服务器端传userId和shopId
+                            UserApplication userApplication = (UserApplication) getApplicationContext();
+                            User user = userApplication.getUser();
+                            FormBody.Builder formBuilder = new FormBody.Builder();
+                            //添加键值对数据
+                            formBuilder.add("userId", user.getUserId() + "");
+                            formBuilder.add("shopId", shopId + "");
+                            FormBody formBody = formBuilder.build();
+                            //创建Request请求对象
+                            Request request = new Request.Builder()
+                                    .url("http://"+ip+":8080/MealAndEnjoyServer/user/collectshop.action")
+                                    .post(formBody)
+                                    .build();
+                            //3. 创建用于提交请求的Call对象
+                            Call call = ok.newCall(request);
+                            //4. 提交请求并获取服务器返回的响应信息（Response对象封装）
+                            try {
+                                Response response=call.execute();
+                                String str = response.body().string();
+                                Log.i("ceshi",str);
+                                Message message=handler.obtainMessage();
+                                if(str.equals("您已收藏成功~")){
+                                    message.what=6;
+                                }else{
+                                    message.what=7;
+                                }
+                                //利用Handler对象发送消息
+                                handler.sendMessage(message);
+                            } catch (IOException e) {
+                                e.printStackTrace();
+                            }
+                        }
+                    }.start();
+
+
+                }else{
+                    new Thread() {
+                        @Override
+                        public void run() {
+                            //往服务器端传userId和shopId
+                            UserApplication userApplication = (UserApplication) getApplicationContext();
+                            User user = userApplication.getUser();
+                            FormBody.Builder formBuilder = new FormBody.Builder();
+                            //添加键值对数据
+                            formBuilder.add("userId", user.getUserId() + "");
+                            formBuilder.add("shopId", shopId + "");
+                            FormBody formBody = formBuilder.build();
+                            //创建Request请求对象
+                            Request request = new Request.Builder()
+                                    .url("http://"+ip+":8080/MealAndEnjoyServer/user/cancelcollectshop.action")
+                                    .post(formBody)
+                                    .build();
+                            //3. 创建用于提交请求的Call对象
+                            Call call = ok.newCall(request);
+                            //4. 提交请求并获取服务器返回的响应信息（Response对象封装）
+                            try {
+                                Response response=call.execute();
+                                String str = response.body().string();
+                                Log.i("ceshi",str);
+                                Message message=handler.obtainMessage();
+                                if(str.equals("您已取消收藏~")){
+                                    message.what=8;
+                                }else{
+                                    message.what=9;
+                                }
+                                //利用Handler对象发送消息
+                                handler.sendMessage(message);
+                            } catch (IOException e) {
+                                e.printStackTrace();
+                            }
+                        }
+                    }.start();
+                }
+            }
+        });
+        //为退出按钮注册点击事件监听器
+        imgbtnRetn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
+
         //设置店铺信息
         shopTitle.setText(shopDemo.getShopdName());
         shopAddress.setText(shopDemo.getAddress());
@@ -247,6 +400,8 @@ public class ShopDetailsActivity extends AppCompatActivity {
         btn_cancelNum1 = findViewById(R.id.cancelNum);
         btn_cancelNum2 = findViewById(R.id.cancelNum2);
         btn_cancelNum3 = findViewById(R.id.cancelNum3);
+        ivCollection=findViewById(R.id.img_heart);
+        imgbtnRetn=findViewById(R.id.imgbtn_retn1);
     }
 
     //按钮点击事件监听器
@@ -303,56 +458,93 @@ public class ShopDetailsActivity extends AppCompatActivity {
                 UserApplication userApplication = (UserApplication) getApplicationContext();
                 User user = userApplication.getUser();
                 FormBody.Builder formBuilder = new FormBody.Builder();
-                //添加键值对数据
-                String shopid = String.valueOf(shopId);
-                String userid = String.valueOf(user.getUserId());
-                formBuilder.add("sId", shopid);
-                formBuilder.add("userId",userid);
-                FormBody formBody1 = formBuilder.build();
-                FormBody formBody2 = formBuilder.build();
-                //创建Request请求对象
-                Request request1 = new Request.Builder()
-                        .url("http://"+ip+":8080/demo001/numberr/getNum.action")
-                        .post(formBody1)
-                        .build();
-                Request request2 = new Request.Builder()
-                        .url("http://"+ip+":8080/demo001/numberr/judgeNum.action")
-                        .post(formBody2)
-                        .build();
-                //3. 创建用于提交请求的Call对象
-                Call call = ok.newCall(request1);
-                Call call2 = ok.newCall(request2);
-                //4. 提交异步请求，并获取响应数据
-                try {
-                    Response response1 = call.execute();
-                    Response response2 = call2.execute();
-                    Gson gson = new Gson();
-                    String nnn = response1.body().string();
-                    Num num = gson.fromJson(nnn,Num.class);
-                    String qName = response2.body().string();
-                    int j = 0;
-                    if (qName.equals("小桌S")){
-                        j = 1 ;
-                    }else  if (qName.equals("中桌M")){
-                        j = 2 ;
-                    }else if(qName.equals("大桌B")){
-                        j = 3 ;
-                    }else{
-                        j = 4 ;
+                if (user != null){
+                    //添加键值对数据
+                    String shopid = String.valueOf(shopId);
+                    String userid = String.valueOf(user.getUserId());
+                    formBuilder.add("sId", shopid);
+                    formBuilder.add("userId",userid);
+                    FormBody formBody1 = formBuilder.build();
+                    FormBody formBody2 = formBuilder.build();
+                    FormBody formBody3 = formBuilder.build();
+                    //创建Request请求对象
+                    //获取该商店每种桌型正在等待人数
+                    Request request1 = new Request.Builder()
+                            .url("http://"+ip+":8080/MealAndEnjoyServer/numberr/getNum.action")
+                            .post(formBody1)
+                            .build();
+                    //获取判断该用户是否当天在该商店存在排号信息的数据
+                    Request request2 = new Request.Builder()
+                            .url("http://"+ip+":8080/MealAndEnjoyServer/numberr/judgeNum.action")
+                            .post(formBody2)
+                            .build();
+                    //判断该用户是否已收藏此店铺
+                    Request request3 = new Request.Builder()
+                            .url("http://"+ip+":8080/MealAndEnjoyServer/user/jugCollect.action")
+                            .post(formBody3)
+                            .build();
+                    //3. 创建用于提交请求的Call对象
+                    Call call = ok.newCall(request1);
+                    Call call2 = ok.newCall(request2);
+                    Call call3 = ok.newCall(request3);
+                    //4. 提交异步请求，并获取响应数据
+                    try {
+                        Response response1 = call.execute();
+                        Response response2 = call2.execute();
+                        Response response3 = call3.execute();
+                        Gson gson = new Gson();
+                        String nnn = response1.body().string();
+                        Num num = gson.fromJson(nnn,Num.class);
+                        String qName = response2.body().string();
+                        String result = response3.body().string();
+                        Message msg = Message.obtain();
+                        Bundle b = new Bundle();
+                        int j = 0;
+                        if (qName.equals("小桌S")){
+                            j = 1 ;
+                        }else  if (qName.equals("中桌M")){
+                            j = 2 ;
+                        }else if(qName.equals("大桌B")){
+                            j = 3 ;
+                        }else{
+                            j = 4 ;
+                        }
+                        b.putString("jugCollect",result);
+                        b.putSerializable("num",num);
+                        b.putInt("qName",j);
+                        Log.i("ceshi111111111",result);
+                        msg.setData(b);
+                        msg.what = 1;
+                        handler.sendMessage(msg);
+                    } catch (IOException e) {
+                        e.printStackTrace();
                     }
-                    Message msg = Message.obtain();
-                    Bundle b = new Bundle();
-                    b.putSerializable("num",num);
-                    b.putInt("qName",j);
-                    String jj = String.valueOf(j);
-                    Log.i("ceshi",jj+"判断桌型");
-                    Log.i("ceshi",qName);
-                    msg.setData(b);
-                    msg.what = 1;
-                    handler.sendMessage(msg);
-                } catch (IOException e) {
-                    e.printStackTrace();
+                }else {
+                    String shopid = String.valueOf(shopId);
+                    formBuilder.add("sId", shopid);
+                    FormBody formBody1 = formBuilder.build();
+                    Request request1 = new Request.Builder()
+                            .url("http://"+ip+":8080/MealAndEnjoyServer/numberr/getNum.action")
+                            .post(formBody1)
+                            .build();
+                    Call call = ok.newCall(request1);
+                    Response response1 = null;
+                    try {
+                        response1 = call.execute();
+                        Gson gson = new Gson();
+                        String nnn = response1.body().string();
+                        Num num = gson.fromJson(nnn,Num.class);
+                        Message msg = Message.obtain();
+                        Bundle b = new Bundle();
+                        b.putSerializable("num",num);
+                        msg.setData(b);
+                        msg.what = 10;
+                        handler.sendMessage(msg);
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
                 }
+
             }
         }
     //取号 --- 小桌
@@ -372,7 +564,7 @@ public class ShopDetailsActivity extends AppCompatActivity {
             FormBody formBody = formBuilder.build();
             //创建Request请求对象
             Request request = new Request.Builder()
-                    .url("http://"+ip+":8080/demo001/numberr/getLittle.action")
+                    .url("http://"+ip+":8080/MealAndEnjoyServer/numberr/getLittle.action")
                     .post(formBody)
                     .build();
             //3. 创建用于提交请求的Call对象
@@ -407,7 +599,7 @@ public class ShopDetailsActivity extends AppCompatActivity {
             FormBody formBody = formBuilder.build();
             //创建Request请求对象
             Request request = new Request.Builder()
-                    .url("http://"+ip+":8080/demo001/numberr/getMiddle.action")
+                    .url("http://"+ip+":8080/MealAndEnjoyServer/numberr/getMiddle.action")
                     .post(formBody)
                     .build();
             //3. 创建用于提交请求的Call对象
@@ -440,7 +632,7 @@ public class ShopDetailsActivity extends AppCompatActivity {
             FormBody formBody = formBuilder.build();
             //创建Request请求对象
             Request request = new Request.Builder()
-                    .url("http://"+ip+":8080/demo001/numberr/getLarge.action")
+                    .url("http://"+ip+":8080/MealAndEnjoyServer/numberr/getLarge.action")
                     .post(formBody)
                     .build();
             //3. 创建用于提交请求的Call对象
@@ -471,7 +663,7 @@ public class ShopDetailsActivity extends AppCompatActivity {
             FormBody formBody = formBuilder.build();
             //创建Request请求对象
             Request request = new Request.Builder()
-                    .url("http://"+ip+":8080/demo001/numberr/cancelNum.action")
+                    .url("http://"+ip+":8080/MealAndEnjoyServer/numberr/cancelNum.action")
                     .post(formBody)
                     .build();
             //3. 创建用于提交请求的Call对象
@@ -487,4 +679,5 @@ public class ShopDetailsActivity extends AppCompatActivity {
             }
         }
     }
+
 }

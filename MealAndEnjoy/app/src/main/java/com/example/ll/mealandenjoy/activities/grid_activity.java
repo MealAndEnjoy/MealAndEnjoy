@@ -110,7 +110,7 @@ public class grid_activity extends AppCompatActivity {
             MediaType type = MediaType.parse("text/plain;charset=UTF-8");
             RequestBody body = RequestBody.create(type,str);
             Request.Builder builder = new Request.Builder();
-            builder.url("http://"+ip+":8080/demo001/shop/getshopgrid.action");
+            builder.url("http://"+ip+":8080/MealAndEnjoyServer/shop/getshopgrid.action");
             //builder.url("http://172.16.12.228:8080/demo001/ShopDemo/homelist.action");
             builder.post(body);
             Request request = builder.build();

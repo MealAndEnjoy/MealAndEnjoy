@@ -1,12 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="150dp">
+    android:layout_height="120dp">
     <ImageView
         android:id="@+id/businesscircle_image"
-        android:layout_width="230dp"
-        android:layout_height="match_parent"
-        android:src="@mipmap/ic_launcher"/>
+        android:layout_width="240dp"
+        android:layout_height="115dp"
+        android:src="@mipmap/ic_launcher"
+        android:scaleType="centerCrop"
+        android:layout_margin="2dp"/>
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"

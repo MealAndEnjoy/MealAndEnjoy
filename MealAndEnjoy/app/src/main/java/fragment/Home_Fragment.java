@@ -1,6 +1,7 @@
 package fragment;
 
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
@@ -13,7 +14,10 @@ import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.AdapterView;
+import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -24,6 +28,7 @@ import com.example.ll.mealandenjoy.R;
 import com.example.ll.mealandenjoy.activities.DeliciousFoodActivity;
 import com.example.ll.mealandenjoy.activities.EntertainmentActivity;
 import com.example.ll.mealandenjoy.activities.HomeActivity;
+import com.example.ll.mealandenjoy.activities.SearchActivity;
 import com.example.ll.mealandenjoy.activities.ShopDetailsActivity;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
@@ -36,8 +41,10 @@ import java.util.List;
 
 import adapters.CustomHomeAdapter;
 import adapters.MyPagerAdapter;
+import entity.BCList;
 import entity.HomeShopList;
 import entity.ShopDemo;
+import map.map_activity;
 import okhttp3.Call;
 import okhttp3.MediaType;
 import okhttp3.OkHttpClient;
@@ -52,7 +59,7 @@ import okhttp3.Response;
 
 
 public class Home_Fragment extends Fragment implements ViewPager.OnPageChangeListener, View.OnTouchListener {
-    public static String ip = "10.7.90.178";
+    public static String ip = "10.7.85.230";
 
     public static final int VIEW_PAGER_DELAY = 2000;
     private MyPagerAdapter mAdapter;
@@ -60,10 +67,12 @@ public class Home_Fragment extends Fragment implements ViewPager.OnPageChangeLis
     private ImageView[] mBottomImages;
     private LinearLayout mBottomLiner;
     private ViewPager mViewPager;
-
+    private EditText editText;
+    private Button map_model;
     private int currentViewPagerItem;
     //是否自动播放
     private boolean isAutoPlay;
+//    private View view = getActivity().findViewById(R.id.linear1);
 
     private MyHandler mHandler;
     private Thread mThread;
@@ -83,7 +92,11 @@ public class Home_Fragment extends Fragment implements ViewPager.OnPageChangeLis
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         //加载选项卡对应的选项页面
         View view = inflater.inflate(R.layout.activity_home,container,false);
-        //获取布局文件中控件对象
+        //添加listview
+        ok = new OkHttpClient();
+        thread = new Thread(new MyThread());
+        listView = getActivity().findViewById(R.id.lv_shops);
+        thread.start();
 
         //返回选项卡对应的选项页面
         return view;
@@ -92,9 +105,41 @@ public class Home_Fragment extends Fragment implements ViewPager.OnPageChangeLis
     public void onActivityCreated(Bundle savedInstanceState){
         super.onActivityCreated(savedInstanceState);
         //获取控件
+        map_model = getActivity().findViewById(R.id.map_moudle);
+        map_model.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent();
+                intent.setClass(getActivity(), map_activity.class);
+                startActivity(intent);
+            }
+        });
         imgbtn_food = getActivity().findViewById(R.id.imgbtn_food);
         imgbtn_entertain = getActivity().findViewById(R.id.imgbtn_entertain);
         //给按钮注册事件监听器
+        editText = getActivity().findViewById(R.id.search_et_input);
+        editText.setFocusable(true);
+        editText.setFocusableInTouchMode(false);
+        editText.requestFocus();
+        editText.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent();
+                intent.setClass(getContext(), SearchActivity.class);
+                startActivity(intent);
+            }
+        });
+
+//        editText.setOnTouchListener(new View.OnTouchListener() {
+//            @Override
+//            public boolean onTouch(View v, MotionEvent event) {
+//                editText.clearFocus();
+//                Intent intent = new Intent();
+//                intent.setClass(getContext(), SearchActivity.class);
+//                startActivity(intent);
+//                return false;
+//            }
+//        });
         ButtonClickListener listener = new ButtonClickListener();
         imgbtn_food.setOnClickListener(listener);
         imgbtn_entertain.setOnClickListener(listener);
@@ -114,32 +159,37 @@ public class Home_Fragment extends Fragment implements ViewPager.OnPageChangeLis
         mAdapter.notifyDataSetChanged();
         //设置底部4个小点
         setBottomIndicator();
-        //添加listview
-        ok = new OkHttpClient();
-        thread = new Thread(new MyThread());
-        listView = getActivity().findViewById(R.id.lv_shops);
-        thread.start();
+//阿上
     }
 
     private void addImageView(){
-        ImageView view0 = new ImageView(getContext());
-        view0.setImageResource(R.mipmap.p1);
         ImageView view1 = new ImageView(getContext());
         view1.setImageResource(R.mipmap.p2);
         ImageView view2 = new ImageView(getContext());
-        view2.setImageResource(R.mipmap.p3);
+        view2.setImageResource(R.mipmap.p5);
         ImageView view3 = new ImageView(getContext());
-        view3.setImageResource(R.mipmap.p4);
+        view3.setImageResource(R.mipmap.p6);
+        ImageView view4= new ImageView(getContext());
+        view4.setImageResource(R.mipmap.p7);
+        ImageView view5 = new ImageView(getContext());
+        view5.setImageResource(R.mipmap.p8);
+        ImageView view6 = new ImageView(getContext());
+        view6.setImageResource(R.mipmap.p9);
 
-        view0.setScaleType(ImageView.ScaleType.CENTER_CROP);
+
         view1.setScaleType(ImageView.ScaleType.CENTER_CROP);
         view2.setScaleType(ImageView.ScaleType.CENTER_CROP);
         view3.setScaleType(ImageView.ScaleType.CENTER_CROP);
+        view4.setScaleType(ImageView.ScaleType.CENTER_CROP);
+        view5.setScaleType(ImageView.ScaleType.CENTER_CROP);
+        view6.setScaleType(ImageView.ScaleType.CENTER_CROP);
 
-        mItems.add(view0);
         mItems.add(view1);
         mItems.add(view2);
         mItems.add(view3);
+        mItems.add(view4);
+        mItems.add(view5);
+        mItems.add(view6);
     }
 
     private void setBottomIndicator() {
@@ -338,6 +388,8 @@ public class Home_Fragment extends Fragment implements ViewPager.OnPageChangeLis
             HomeShopList shopList = new HomeShopList();
             shopList.setShopname(list.get(i).getShopdName());
             shopList.setShopimg(list.get(i).getShopimg());
+            shopList.setAllNum(list.get(i).getAllNum());
+            shopList.setAvgCost(list.get(i).getAvgCost());
             shopLists.add(shopList);
         }
         return shopLists;
@@ -352,7 +404,7 @@ public class Home_Fragment extends Fragment implements ViewPager.OnPageChangeLis
             MediaType type = MediaType.parse("text/plain;charset=UTF-8");
             RequestBody body = RequestBody.create(type,str);
             Request.Builder builder = new Request.Builder();
-            builder.url("http://"+ip+":8080/demo001/shop/homelist.action");
+            builder.url("http://"+ip+":8080/MealAndEnjoyServer/shop/homelist.action");
             builder.post(body);
             Request request = builder.build();
             Call call = ok.newCall(request);
@@ -371,5 +423,22 @@ public class Home_Fragment extends Fragment implements ViewPager.OnPageChangeLis
             }
             mHandler.removeCallbacks(thread);
         }
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        editText = getActivity().findViewById(R.id.search_et_input);
+        editText.setFocusable(true);
+        editText.setFocusableInTouchMode(false);
+        editText.requestFocus();
+        editText.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent();
+                intent.setClass(getContext(), SearchActivity.class);
+                startActivity(intent);
+            }
+        });
     }
 }

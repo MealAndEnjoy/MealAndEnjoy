@@ -8,10 +8,18 @@
         android:layout_width="170dp"
         android:layout_height="105dp"
         android:layout_margin="10dp"
-        android:src="@mipmap/shop1"/>
+        android:src="@mipmap/shop1"
+        android:clickable="false"
+        android:focusable="false"
+        android:focusableInTouchMode="false"/>
     <RelativeLayout
+        android:id="@+id/rela"
+        android:layout_toRightOf="@id/iv_shop"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content">
+        android:layout_height="135dp"
+        android:clickable="false"
+        android:focusable="false"
+        android:focusableInTouchMode="false" >
         <TextView
             android:id="@+id/tv_shop_name"
             android:layout_width="match_parent"
@@ -36,8 +44,28 @@
             android:layout_height="wrap_content"
             android:layout_toRightOf="@id/iv_shop_star"
             android:layout_below="@id/tv_shop_name"
-            android:text="￥50/人"
+            android:text="￥"
             android:layout_marginLeft="50dp"
+            android:textSize="20sp"
+            android:textColor="#000000"/>
+        <TextView
+            android:id="@+id/tv_shop_price2"
+            android:layout_marginTop="5dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_toRightOf="@id/tv_shop_price"
+            android:layout_below="@id/tv_shop_name"
+            android:text="50"
+            android:textSize="20sp"
+            android:textColor="#000000"/>
+        <TextView
+            android:id="@+id/tv_shop_price3"
+            android:layout_marginTop="5dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_toRightOf="@id/tv_shop_price2"
+            android:layout_below="@id/tv_shop_name"
+            android:text="/人"
             android:textSize="20sp"
             android:textColor="#000000"/>
         <TextView
@@ -68,12 +96,33 @@
             android:layout_marginTop="5dp"
             android:layout_marginLeft="10dp"/>
         <TextView
+            android:id="@+id/tv_waitNum"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="前方等待11桌"
+            android:text="需等待"
             android:layout_below="@id/tv_shop_type"
             android:layout_toRightOf="@id/iv_shop_line"
             android:layout_marginLeft="10dp"
+            android:layout_marginTop="5dp"
+            android:textSize="20sp"
+            android:textColor="#000000"/>
+        <TextView
+            android:id="@+id/tv_waitNum2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="11"
+            android:layout_below="@id/tv_shop_type"
+            android:layout_toRightOf="@+id/tv_waitNum"
+            android:layout_marginTop="5dp"
+            android:textSize="20sp"
+            android:textColor="#FF0000"/>
+        <TextView
+            android:id="@+id/tv_waitNum3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="桌"
+            android:layout_below="@id/tv_shop_type"
+            android:layout_toRightOf="@+id/tv_waitNum2"
             android:layout_marginTop="5dp"
             android:textSize="20sp"
             android:textColor="#000000"/>

@@ -26,6 +26,7 @@ import com.example.ll.mealandenjoy.activities.LoginActivity;
 import com.example.ll.mealandenjoy.activities.PersonalInfoActivity;
 import com.example.ll.mealandenjoy.activities.RegisterActivity;
 import com.example.ll.mealandenjoy.activities.ShopLoginActivity;
+import com.example.ll.mealandenjoy.activities.UserNumberActivity;
 import com.example.ll.mealandenjoy.activities.UserShopCollectionActivity;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
@@ -35,7 +36,9 @@ import java.io.Serializable;
 import java.lang.reflect.Type;
 import java.util.List;
 
+import entity.NumDemo;
 import entity.Shop;
+import entity.ShopDemo;
 import entity.User;
 import entity.UserApplication;
 import okhttp3.Call;
@@ -58,9 +61,11 @@ public class Mine_Fragment extends Fragment {
     private TextView tvInfo;
     private TextView tvUserInfo;
     private Button btnCall;
+    private Button btnExit;
     private User user;
     private Button btn_shop;
     private ImageButton imgbtnCollection;
+    private ImageButton imgbtnNumber;
     //定义OKHTTPClient对象
     private OkHttpClient okHttpClient;
 
@@ -70,6 +75,8 @@ public class Mine_Fragment extends Fragment {
 
         //加载选项卡对应的选项页面
         View view = inflater.inflate(R.layout.activity_mine, container, false);
+        final UserApplication userApplication= (UserApplication)getActivity().getApplicationContext();
+        user=userApplication.getUser();
         //获取布局文件中控件对象
         btnRegister = view.findViewById(R.id.bt_2);
         btnLogin = view.findViewById(R.id.bt_1);
@@ -80,6 +87,8 @@ public class Mine_Fragment extends Fragment {
         btnCall=view.findViewById(R.id.bt_7);
         btn_shop = view.findViewById(R.id.bt_8);
         imgbtnCollection = view.findViewById(R.id.bt_3);
+        btnExit=view.findViewById(R.id.bt_9);
+        imgbtnNumber=view.findViewById(R.id.bt_4);
         //初始化OKHTTPClient对象
         okHttpClient = new OkHttpClient();
         //自定义一个Handler类
@@ -96,6 +105,14 @@ public class Mine_Fragment extends Fragment {
                         intent.setClass(getActivity(), UserShopCollectionActivity.class);
                         intent.putExtras(b);
                         startActivity(intent);
+                        break;
+                    case 2:
+                        //将userNumList传到号码里面
+                        Bundle b1 = msg.getData();
+                        Intent intent1 = new Intent();
+                        intent1.setClass(getActivity(), UserNumberActivity.class);
+                        intent1.putExtras(b1);
+                        startActivity(intent1);
                         break;
                 }
                 super.handleMessage(msg);
@@ -131,6 +148,20 @@ public class Mine_Fragment extends Fragment {
                 startActivity(intent);
             }
         });
+        if (user != null){
+            //为注销按钮设置点击事件监听器
+            btnExit.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    userApplication.setUser(null);
+                    Toast.makeText(getActivity(),"您已注销~",Toast.LENGTH_SHORT).show();
+                    btnExit.setVisibility(View.GONE);
+                    getActivity().recreate();
+                }
+            });
+        }else{
+            btnExit.setVisibility(View.GONE);
+        }
         //为拨打电话按钮添加事件监听器
         btnCall.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -161,8 +192,6 @@ public class Mine_Fragment extends Fragment {
             }
         });
 
-        UserApplication userApplication= (UserApplication)getActivity().getApplicationContext();
-        final User user=userApplication.getUser();
         if (user != null){
             btnRegister.setVisibility(View.GONE);
             btnLogin.setVisibility(View.GONE);
@@ -220,7 +249,7 @@ public class Mine_Fragment extends Fragment {
                             FormBody formBody = formBuilder.build();
                             //创建Request请求对象
                             Request request = new Request.Builder()
-                                    .url("http://"+ip+":8080/demo001/user/getcollection.action")
+                                    .url("http://"+ip+":8080/MealAndEnjoyServer/user/getcollection.action")
                                     .post(formBody)
                                     .build();
                             //3. 创建用于提交请求的Call对象
@@ -232,9 +261,9 @@ public class Mine_Fragment extends Fragment {
                                 Log.i("ceshi", str);
                                 Message message = handler.obtainMessage();
                                 Gson gson = new Gson();
-                                Type ShopCollectionList = new TypeToken<List<Shop>>() {
+                                Type ShopCollectionList = new TypeToken<List<ShopDemo>>() {
                                 }.getType();
-                                List<Shop> shopCollectionList = gson.fromJson(str, ShopCollectionList);
+                                List<ShopDemo> shopCollectionList = gson.fromJson(str, ShopCollectionList);
                                 Bundle b = new Bundle();
                                 b.putSerializable("shopCollectionList", (Serializable) shopCollectionList);
                                 message.setData(b);
@@ -254,6 +283,59 @@ public class Mine_Fragment extends Fragment {
             });
 
 
+        }
+        //为查看号码按钮注册点击事件监听器
+        if (user == null){
+            imgbtnNumber.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Toast.makeText(getActivity(), "您还没有登录,请先登录~", Toast.LENGTH_SHORT).show();
+                }
+            });
+        }else{
+            imgbtnNumber.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    new Thread() {
+                        @Override
+                        public void run() {
+                            FormBody.Builder formBuilder = new FormBody.Builder();
+                            //添加键值对数据
+                            formBuilder.add("userId", user.getUserId() + "");
+                            FormBody formBody = formBuilder.build();
+                            //创建Request请求对象
+                            Request request = new Request.Builder()
+                                    .url("http://"+ip+":8080/MealAndEnjoyServer/user/getusernum.action")
+                                    .post(formBody)
+                                    .build();
+                            //3. 创建用于提交请求的Call对象
+                            Call call = okHttpClient.newCall(request);
+                            //4. 提交请求并获取服务器返回的响应信息（Response对象封装）
+                            try {
+                                Response response = call.execute();
+                                String str = response.body().string();
+                                Log.i("ceshi", str);
+                                Message message = handler.obtainMessage();
+                                Gson gson = new Gson();
+                                Type UserNumList = new TypeToken<List<NumDemo>>() {
+                                }.getType();
+                                List<NumDemo> userNumList = gson.fromJson(str, UserNumList);
+                                Bundle b = new Bundle();
+                                b.putSerializable("userNumList", (Serializable) userNumList);
+                                message.setData(b);
+                                message.what = 2;
+
+                                //利用Handler对象发送消息
+                                handler.sendMessage(message);
+                            } catch (IOException e) {
+                                e.printStackTrace();
+                            }
+
+                        }
+
+                    }.start();
+                }
+            });
         }
 
         //返回选项卡对应的选项页面

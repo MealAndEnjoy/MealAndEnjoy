@@ -8,40 +8,102 @@
     android:focusableInTouchMode="true"
     android:layout_width="match_parent"
     android:layout_height="wrap_content">
+
     <LinearLayout
+        android:id="@+id/linear1"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical"
         >
         <!--顶部搜索框部分-->
+        <!--<LinearLayout-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:orientation="horizontal"-->
+            <!--android:background="#F5F5F5">-->
+
+            <!--<ImageButton-->
+                <!--android:id="@+id/imgbtn_chcity"-->
+                <!--android:layout_width="0dp"-->
+                <!--android:layout_height="match_parent"-->
+                <!--android:layout_weight="1"-->
+                <!--android:background="@null"-->
+                <!--android:src="@mipmap/tb5" />-->
+
+            <!--<ImageButton-->
+                <!--android:layout_width="0dp"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:layout_weight="2"-->
+                <!--android:background="@null"-->
+                <!--android:src="@mipmap/search5" />-->
+
+            <!--<ImageButton-->
+                <!--android:id="@+id/imgbtn_search"-->
+                <!--android:layout_width="0dp"-->
+                <!--android:layout_height="match_parent"-->
+                <!--android:layout_weight="1"-->
+                <!--android:background="@null"-->
+                <!--android:src="@mipmap/tb6" />-->
+        <!--</LinearLayout>-->
+        <!--顶部搜索框部分-->
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:background="#F5F5F5">
+            android:orientation="horizontal">
 
-            <ImageButton
-                android:id="@+id/imgbtn_chcity"
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
+            <!--<ImageButton-->
+            <!--android:id="@+id/imgbtn_chcity"-->
+            <!--android:layout_width="wrap_content"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:layout_marginTop="5dp"-->
+            <!--android:src="@mipmap/tb5" />-->
+            <Button
+                android:id="@+id/location"
+                android:layout_marginLeft="8dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginBottom="8dp"
+                android:layout_gravity="center_vertical"
+                android:background="@drawable/btn_search_bg"
+                android:layout_width="36dp"
+                android:layout_height="34dp"
+                android:text="石家庄"
                 android:layout_weight="1"
-                android:background="@null"
-                android:src="@mipmap/tb5" />
-
-            <ImageButton
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="2"
-                android:background="@null"
-                android:src="@mipmap/search5" />
-
-            <ImageButton
-                android:id="@+id/imgbtn_search"
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
+                android:textColor="@color/color_white"/>
+            <EditText
+                android:id="@+id/search_et_input"
+                android:layout_gravity="center_vertical"
+                android:layout_margin="8dp"
+                android:drawableLeft="@mipmap/search_icon"
+                android:drawablePadding="5dp"
+                android:layout_width="wrap_content"
+                android:layout_height="34dp"
+                android:background="@drawable/search_edittext_shape"
+                android:textSize="16sp"
+                android:imeOptions="actionSearch"
+                android:inputType="text"
+                android:layout_weight="4"
+                android:hint="请输入关键字"/>
+            <Button
+                android:id="@+id/map_moudle"
+                android:layout_marginRight="8dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginBottom="8dp"
+                android:layout_gravity="center_vertical"
+                android:background="@drawable/btn_search_bg"
+                android:layout_width="wrap_content"
+                android:layout_height="34dp"
+                android:text="地图模式"
                 android:layout_weight="1"
-                android:background="@null"
-                android:src="@mipmap/tb6" />
+                android:textColor="@color/color_white"/>
+
+            <!--<ImageButton-->
+            <!--android:id="@+id/imgbtn_search"-->
+            <!--android:layout_width="wrap_content"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:layout_marginTop="5dp"-->
+            <!--android:src="@mipmap/tb6"-->
+            <!--/>-->
+
         </LinearLayout>
 
         <!--轮播图-->
@@ -77,25 +139,50 @@
 
         <!--两张图片按钮-->
         <LinearLayout
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal">
-
             <ImageButton
                 android:id="@+id/imgbtn_food"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_marginLeft="10dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginRight="10dp"
+                android:layout_marginBottom="10dp"
                 android:layout_weight="1"
-                android:background="@mipmap/food1"
-                />
+                android:background="@mipmap/btn3" />
 
             <ImageButton
                 android:id="@+id/imgbtn_entertain"
-                android:layout_width="wrap_content"
+                android:layout_width="0dp"
                 android:layout_height="match_parent"
+                android:layout_marginTop="10dp"
+                android:layout_marginRight="10dp"
+                android:layout_marginBottom="10dp"
                 android:layout_weight="1"
-                android:background="@mipmap/entertainment" />
+                android:background="@mipmap/btn5" />
         </LinearLayout>
+        <TextView
+            android:layout_below="@id/user_collection_title"
+            android:layout_width="match_parent"
+            android:layout_height="10dp"
+            android:background="#f3eded">
+        </TextView>
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="- 来看看吧 -"
+            android:padding="10dp"
+            android:textStyle="italic"
+            android:textAlignment="center"/>
+        <View
+            android:id="@+id/shop_num_line"
+            android:layout_width="match_parent"
+            android:layout_height="0.3dp"
+            android:layout_below="@+id/tv_shop_name"
+            android:background="#c3b8b6"
+            android:layout_margin="4dp"/>
         <ListView
             android:id="@+id/lv_shops"
             android:layout_width="match_parent"

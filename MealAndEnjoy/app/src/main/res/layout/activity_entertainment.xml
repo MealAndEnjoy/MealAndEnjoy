@@ -4,37 +4,60 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
-    tools:context="com.example.lenovo.viewpagerdemo.activities.EntertainmentActivity">
+    android:orientation="vertical">
+    <!--顶部搜索框部分-->
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="30dp"
-        android:background="#F5F5F5"
+        android:layout_height="wrap_content"
         android:orientation="horizontal">
 
+        <!--<ImageButton-->
+        <!--android:id="@+id/imgbtn_chcity"-->
+        <!--android:layout_width="wrap_content"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:layout_marginTop="5dp"-->
+        <!--android:src="@mipmap/tb5" />-->
         <ImageButton
-            android:id="@+id/imgbtn_chcity"
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="0.5"
-            android:background="@null"
-            android:scaleType="centerInside"
-            android:src="@mipmap/retn_left"></ImageButton>
+            android:id="@+id/btn_left"
+            android:layout_width="wrap_content"
+            android:layout_height="50dp"
+            android:src="@mipmap/retn_left"
+            android:background="#0000"/>
+        <EditText
+            android:id="@+id/search_et_input"
+            android:layout_gravity="center_vertical"
+            android:layout_margin="8dp"
+            android:drawableLeft="@mipmap/search_icon"
+            android:drawablePadding="5dp"
+            android:layout_width="wrap_content"
+            android:layout_height="34dp"
+            android:background="@drawable/search_edittext_shape"
+            android:textSize="16sp"
+            android:imeOptions="actionSearch"
+            android:inputType="text"
+            android:layout_weight="4"
+            android:hint="请输入关键字"/>
+        <Button
+            android:id="@+id/map_moudle"
+            android:layout_marginRight="8dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginBottom="8dp"
+            android:layout_gravity="center_vertical"
+            android:background="@drawable/btn_search_bg"
+            android:layout_width="wrap_content"
+            android:layout_height="34dp"
+            android:text="地图模式"
+            android:layout_weight="1"
+            android:textColor="@color/color_white"/>
 
-        <ImageButton
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="2"
-            android:background="#00000000"
-            android:baselineAlignBottom="true"
-            android:src="@mipmap/search5" />
+        <!--<ImageButton-->
+        <!--android:id="@+id/imgbtn_search"-->
+        <!--android:layout_width="wrap_content"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:layout_marginTop="5dp"-->
+        <!--android:src="@mipmap/tb6"-->
+        <!--/>-->
 
-        <ImageButton
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="2"
-            android:background="#00000000"
-            android:src="@mipmap/tb2" />
     </LinearLayout>
 
     <!--轮播图-->
@@ -97,6 +120,26 @@
             android:layout_weight="1"
             android:src="@mipmap/more_btn" />
     </LinearLayout>
+    <TextView
+        android:layout_below="@id/user_collection_title"
+        android:layout_width="match_parent"
+        android:layout_height="10dp"
+        android:background="#f3eded">
+    </TextView>
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="- 休闲娱乐呦-"
+        android:padding="10dp"
+        android:textStyle="italic"
+        android:textAlignment="center"/>
+    <View
+        android:id="@+id/shop_num_line"
+        android:layout_width="match_parent"
+        android:layout_height="0.3dp"
+        android:layout_below="@+id/tv_shop_name"
+        android:background="#c3b8b6"
+        android:layout_margin="4dp"/>
     <ListView
         android:id="@+id/lv_entertainment"
         android:layout_width="match_parent"

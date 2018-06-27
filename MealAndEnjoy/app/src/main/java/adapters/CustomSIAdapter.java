@@ -28,7 +28,7 @@ import static fragment.Home_Fragment.ip;
  */
 
 public class CustomSIAdapter extends BaseAdapter {
-    public static final String PIC_URL = "http://"+ip+":8080/demo001";
+    public static final String PIC_URL = "http://"+ip+":8080/MealAndEnjoyServer";
     public String path;
     //上下文环境
     private Context mContext;

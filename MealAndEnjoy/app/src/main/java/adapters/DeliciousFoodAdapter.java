@@ -36,7 +36,7 @@ public class DeliciousFoodAdapter extends BaseAdapter {
     private int mLayout;
     //数据源
     private List<HomeShopList> shopData;
-    public static final String PIC_URL = "http://"+ip+":8080/demo001";
+    public static final String PIC_URL = "http://"+ip+":8080/MealAndEnjoyServer";
     public String path;
 
     public DeliciousFoodAdapter(Context context, int mLayout, List<HomeShopList> shopData){
@@ -64,6 +64,8 @@ public class DeliciousFoodAdapter extends BaseAdapter {
     private class ViewHolder{
         private TextView textView;
         private ImageView imageView;
+        private TextView allNum;
+        private TextView tv_shop_price ;
     }
     /**
      *
@@ -88,6 +90,8 @@ public class DeliciousFoodAdapter extends BaseAdapter {
             //3. 获取布局文件中的控件对象
             viewHolder.textView = convertView.findViewById(R.id.tv_shop_name);
             viewHolder.imageView = convertView.findViewById(R.id.iv_shop);
+            viewHolder.allNum = convertView.findViewById(R.id.tv_waitNum2);
+            viewHolder.tv_shop_price = convertView.findViewById(R.id.tv_shop_price2);
             convertView.setTag(viewHolder);
         }else {
             viewHolder = (DeliciousFoodAdapter.ViewHolder) convertView.getTag();
@@ -102,6 +106,9 @@ public class DeliciousFoodAdapter extends BaseAdapter {
         }
         HomeShopList shopList = shopData.get(mposition);
         viewHolder.textView.setText(shopList.getShopname());
+        viewHolder.tv_shop_price.setText(shopList.getAvgCost());
+        viewHolder.allNum.setText(shopList.getAllNum());
+
 
         return convertView;
     }
